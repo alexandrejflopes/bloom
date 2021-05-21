@@ -1,10 +1,10 @@
-package es.p50.sensorsGenerator;
+package ua.p50.sensorApp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SensorsGeneratorApplicationTests {
+class SensorAppApplicationTests {
 
 	@Test
 	void contextLoads() {
