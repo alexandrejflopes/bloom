@@ -7,6 +7,13 @@ public class Action {
     private String timestamp;
     private String action;
 
+    public Action(String sensorId, String sensorType, String timestamp, String action) {
+        this.sensorId = sensorId;
+        this.sensorType = sensorType;
+        this.timestamp = timestamp;
+        this.action = action;
+    }
+
   
     public int getSensorId() {
         return Integer.parseInt(this.sensorId);

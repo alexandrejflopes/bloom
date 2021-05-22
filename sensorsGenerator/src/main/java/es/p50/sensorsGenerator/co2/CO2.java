@@ -75,4 +75,9 @@ public class CO2 {
     public void setTimestamp(int timestamp) {
         this.timestamp = timestamp;
     }
+
+    @Override
+    public String toString() {
+        return this.id + "-" + this.dataType + "-" + this.sensorType + "-" + this.unit + "-" + this.unitAbreviation + "-" + this.value + "-" + this.timestamp;
+    }
 }

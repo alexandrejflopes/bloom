@@ -10,6 +10,10 @@ public class Temperature {
     private double value;
     private int timestamp;
 
+    public Temperature() {
+
+    }
+
     public Temperature(int id, String dataType, String sensorType, String unit, char unitAbreviation, int value, int timestamp) {
         this.id = id;
         this.dataType = dataType;
@@ -19,6 +23,7 @@ public class Temperature {
         this.value = (double) value/10.0;
         this.timestamp = timestamp;
     }
+
 
     public int getId() {
         return id;
@@ -65,6 +70,10 @@ public class Temperature {
     }
 
     public void setValue(int value) {
+        this.value = (double) value/10;
+    }
+
+    public void setValueInt(int value) {
         this.value = (double) value/10.0;
     }
 
@@ -74,5 +83,10 @@ public class Temperature {
 
     public void setTimestamp(int timestamp) {
         this.timestamp = timestamp;
+    }
+
+    @Override
+    public String toString() {
+        return this.id + "-" + this.dataType + "-" + this.sensorType + "-" + this.unit + "-" + this.unitAbreviation + "-" + this.value + "-" + this.timestamp;
     }
 }

@@ -8,31 +8,30 @@ bin/kafka-server-start.sh config/server.properties
 ## Se não existirem os tópicos na máquina, criar:
 
 ```
-bin/kafka-topics.sh --create --topic sensors-temperature --bootstrap-server localhost:9092
-bin/kafka-topics.sh --create --topic sensors-co2 --bootstrap-server localhost:9092
-bin/kafka-topics.sh --create --topic sensors-humidity --bootstrap-server localhost:9092
+bin/kafka-topics.sh --create --topic p50-sensors-temperature --bootstrap-server localhost:9092
+bin/kafka-topics.sh --create --topic p50-sensors-co2 --bootstrap-server localhost:9092
+bin/kafka-topics.sh --create --topic p50-sensors-humidity --bootstrap-server localhost:9092
 
-bin/kafka-topics.sh --create --topic sensors-actions --bootstrap-server localhost:9092
+bin/kafka-topics.sh --create --topic p50-sensors-actions --bootstrap-server localhost:9092
 ```
 
 ## Consumer / Fazer listen dos tópicos:
 
 ```
-bin/kafka-console-consumer.sh --topic sensors-temperature --bootstrap-server localhost:9092
-bin/kafka-console-consumer.sh --topic sensors-co2 --bootstrap-server localhost:9092
-bin/kafka-console-consumer.sh --topic sensors-humidity --bootstrap-server localhost:9092
+bin/kafka-console-consumer.sh --topic p50-sensors-temperature --bootstrap-server localhost:9092
+bin/kafka-console-consumer.sh --topic p50-sensors-co2 --bootstrap-server localhost:9092
+bin/kafka-console-consumer.sh --topic p50-sensors-humidity --bootstrap-server localhost:9092
 
-bin/kafka-console-consumer.sh --topic sensors-actions --bootstrap-server localhost:9092
+bin/kafka-console-consumer.sh --topic p50-sensors-actions --bootstrap-server localhost:9092
 ```
 
 ## Escrever no tópico da ação:
 
-bin/kafka-console-producer.sh --bootstrap-server localhost:9092 --topic sensors-actions
+bin/kafka-console-producer.sh --bootstrap-server localhost:9092 --topic p50-sensors-actions
 
-Mensagem: {"sensorId":"0", "sensorType":"Temperature", "timestamp":"0", "action":"airConditioningOn"}
-          {"sensorId":"0", "sensorType":"Temperature", "timestamp":"0", "action":"airConditioningOff"}
+Mensagem: 0-Temperature-0-airConditioningOn
+          0-Temperature-1-airConditioningOff
             ...
-
-          {"sensorId":"1", "sensorType":"Humidity", "timestamp":"0", "action":"wateringOn"}
-          {"sensorId":"1", "sensorType":"Humidity", "timestamp":"0", "action":"wateringOff"}
+          2-Humidity-0-wateringOn
+          2-Humidity-1-wateringOff
             ...

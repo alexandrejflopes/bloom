@@ -47,7 +47,7 @@ public class TemperatureGenerator {
 
 /////
 
-    //@Scheduled(fixedRate = 15000)   // every 15 seconds
+    @Scheduled(fixedRate = 15000)   // every 15 seconds
     public void changeTemperature2() {   // simulate "normal" temperature oscillations
         if (!this.action2) {
             Random randint = new Random();
