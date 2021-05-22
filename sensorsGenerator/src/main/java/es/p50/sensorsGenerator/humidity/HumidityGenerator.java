@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class HumidityGenerator {
 
-    private final Humidity humidity1 = new Humidity(0, "Double", "Humidity", "Percentage", '%', 180, 0);
-    private final Humidity humidity2 = new Humidity(1, "Double", "Humidity", "Percentage", '%', 670, 0);
-    private final Humidity humidity3 = new Humidity(2, "Double", "Humidity", "Percentage", '%', 500, 0);
+    private final Humidity humidity1 = new Humidity(2, "Double", "Humidity", "Percentage", '%', 180, 0);
+    private final Humidity humidity2 = new Humidity(3, "Double", "Humidity", "Percentage", '%', 670, 0);
+    private final Humidity humidity3 = new Humidity(4, "Double", "Humidity", "Percentage", '%', 500, 0);
 
     private boolean action1 = false;
     private boolean action2 = false;

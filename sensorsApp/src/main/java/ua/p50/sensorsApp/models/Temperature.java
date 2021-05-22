@@ -1,22 +1,26 @@
-package es.p50.sensorsGenerator.humidity;
+package ua.p50.sensorsApp.models;
 
-public class Humidity {
+public class Temperature {
 
     private int id;
     private String dataType;
     private String sensorType;
     private String unit;
-    private char unitAbreviation;
+    private String unitAbreviation;
     private double value;
     private int timestamp;
 
-    public Humidity(int id, String dataType, String sensorType, String unit, char unitAbreviation, int value, int timestamp) {
+    public Temperature() {
+
+    }
+
+    public Temperature(int id, String dataType, String sensorType, String unit, String unitAbreviartion, double value, int timestamp) {
         this.id = id;
         this.dataType = dataType;
         this.sensorType = sensorType;
         this.unit = unit;
-        this.unitAbreviation = unitAbreviation;
-        this.value = (double) value/10.0;
+        this.unitAbreviation = unitAbreviartion;
+        this.value = value;
         this.timestamp = timestamp;
     }
 
@@ -52,11 +56,11 @@ public class Humidity {
         this.unit = unit;
     }
 
-    public char getUnitAbreviation() {
+    public String getUnitAbreviation() {
         return this.unitAbreviation;
     }
 
-    public void setUnitAbreviation(char unitAbreviation) {
+    public void setUnitAbreviation(String unitAbreviation) {
         this.unitAbreviation = unitAbreviation;
     }
 
@@ -64,8 +68,8 @@ public class Humidity {
         return this.value;
     }
 
-    public void setValue(int value) {
-        this.value = (double) value/10.0;
+    public void setValue(double value) {
+        this.value = value;
     }
 
     public int getTimestamp() {
@@ -76,8 +80,4 @@ public class Humidity {
         this.timestamp = timestamp;
     }
 
-    @Override
-    public String toString() {
-        return this.id + "-" + this.dataType + "-" + this.sensorType + "-" + this.unit + "-" + this.unitAbreviation + "-" + this.value + "-" + this.timestamp;
-    }
 }

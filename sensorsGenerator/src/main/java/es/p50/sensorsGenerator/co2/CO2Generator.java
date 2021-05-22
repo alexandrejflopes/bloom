@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class CO2Generator {
 
-    private final CO2 co2_1 = new CO2(0, "Double", "C02", "Parts-per-million", "ppm", 4200, 0);
-    private final CO2 co2_2 = new CO2(1, "Double", "C02", "Parts-per-million", "ppm", 4200, 0);
+    private final CO2 co2_1 = new CO2(5, "Double", "C02", "Parts per million", "ppm", 4200, 0);
+    private final CO2 co2_2 = new CO2(6, "Double", "C02", "Parts per million", "ppm", 4200, 0);
 
     @Autowired 
     CO2Producer producer;

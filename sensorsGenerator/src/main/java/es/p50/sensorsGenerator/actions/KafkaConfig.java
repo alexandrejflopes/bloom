@@ -20,23 +20,22 @@ import java.util.Map;
 public class KafkaConfig {
 
     @Bean
-    public ConsumerFactory<String, Action> consumerFactory() {
-        Map<String, Object> props = new HashMap<>();
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, "group_id");
-        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, ErrorHandlingDeserializer.class);
-        props.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JsonDeserializer.class);
-        props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, Action.class);
-        return new DefaultKafkaConsumerFactory<>(props);
+    public ConsumerFactory<String, String> consumerFactory() {
+        Map<String, Object> map = new HashMap<>();
+  
+        map.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,"localhost:9092");
+        map.put(ConsumerConfig.GROUP_ID_CONFIG,"group_actionsConsumers");
+        map.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class);
+        map.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class);
+        return new DefaultKafkaConsumerFactory<>(map);
     }
+  
     @Bean
-    KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, Action>> kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, Action> factory =
-                new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(consumerFactory());
-        return factory;
+    public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListner() {
+        ConcurrentKafkaListenerContainerFactory<String, String>
+        obj = new ConcurrentKafkaListenerContainerFactory<>();
+        obj.setConsumerFactory(consumerFactory());
+        return obj;
     }
-
  
 }
