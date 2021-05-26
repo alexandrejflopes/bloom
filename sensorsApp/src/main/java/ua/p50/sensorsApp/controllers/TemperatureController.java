@@ -19,18 +19,18 @@ public class TemperatureController {
     @Autowired
     private TemperatureService service;
 
-    // http://localhost:50080/sensor/0/readings/latest     HARDCODED FOR NOW
+    // http://localhost:50080/sensor/0/readings/latest   
     @CrossOrigin(origins="*")
     @GetMapping(value = "/sensor/{id}/readings/latest")
     public Temperature latestSensorReading(@PathVariable("id") int id) {
-        return new Temperature(0, "Double", "Temperature", "Celsius", "C", 25.0, 0);
+        return service.getLatestTemperature(id);
     }
 
-    // http://localhost:50080/sensor/0/readings/all   FROM KAFKA FOR NOW
+    // http://localhost:50080/sensor/0/readings/all 
     @CrossOrigin(origins="*")
     @GetMapping(value = "/sensor/{id}/readings/all")
     public List<Temperature> allSensorReadings(@PathVariable("id") int id) {
-        return service.getAllTemperaturesSensor0();
+        return service.getAllTemperatures(id);
     }
 
 }

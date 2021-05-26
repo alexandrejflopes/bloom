@@ -1,13 +1,35 @@
 package ua.p50.sensorsApp.models;
 
+import java.time.Instant;
+
+import org.influxdb.annotation.Column;
+import org.influxdb.annotation.Measurement;
+
+@Measurement(name = "temperature")
 public class Temperature {
 
+    @Column(name = "time")
+    private Instant time;
+    
+    @Column(name = "id")
     private int id;
+
+    @Column(name = "dataType")
     private String dataType;
+
+    @Column(name = "sensorType")
     private String sensorType;
+
+    @Column(name = "unit")
     private String unit;
+
+    @Column(name = "unitAbreviation")
     private String unitAbreviation;
+
+    @Column(name = "value")
     private double value;
+
+    @Column(name = "timestamp")
     private int timestamp;
 
     public Temperature() {
