@@ -3,8 +3,8 @@
 /.idea
 
 # dependencies
-/node_modules
-!node_modules/node-sass/*
+/node_modules/*
+!/node_modules/node-sass/
 /.pnp
 .pnp.js
 
