@@ -1,9 +1,10 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
-
-import '../../assets/scss/style.scss';
-import Aux from "../../hoc/_Aux";
+import { NavLink } from 'react-router-dom';
 import Breadcrumb from "../../App/layout/AdminLayout/Breadcrumb";
+//import '../../assets/scss/style.scss';
+import '../../assets/css/style.css';
+import Aux from "../../hoc/_Aux";
+
 
 class SignUp1 extends React.Component {
     render () {

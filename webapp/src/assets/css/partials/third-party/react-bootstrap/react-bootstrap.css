@@ -1,0 +1,29 @@
+.pcoded-header .dropdown {
+  height: 70px;
+}
+.pcoded-header .dropdown .dropdown-toggle {
+  margin: -2px 0 0 4px;
+}
+.pcoded-header .btn {
+  padding: 0;
+  margin-bottom: 0;
+  margin-right: 0;
+  border: none;
+}
+.pcoded-header .btn:after {
+  right: -12px !important;
+}
+.pcoded-header .btn:focus, .pcoded-header .btn:active, .pcoded-header .btn:hover {
+  text-decoration: none;
+}
+.pcoded-header .main-search {
+  margin-left: 5px;
+}
+.pcoded-header .main-search .input-group-text {
+  line-height: 1;
+}
+.pcoded-header .btn > i {
+  margin-right: -12px;
+}
+
+/*# sourceMappingURL=react-bootstrap.css.map */

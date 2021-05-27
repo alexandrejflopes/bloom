@@ -1,18 +1,20 @@
 import React, { Component, Suspense } from 'react';
-import {Route, Switch, Redirect} from 'react-router-dom';
-import {connect} from 'react-redux';
 import Fullscreen from "react-full-screen";
+import { connect } from 'react-redux';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import windowSize from 'react-window-size';
-
-import Navigation from './Navigation';
-import NavBar from './NavBar';
-import Breadcrumb from './Breadcrumb';
-import Loader from "../Loader";
-import routes from "../../../routes";
+//import './app.scss';
+import "../../../assets/css/style.css";
 import Aux from "../../../hoc/_Aux";
+import routes from "../../../routes";
 import * as actionTypes from "../../../store/actions";
+import Loader from "../Loader";
+import Breadcrumb from './Breadcrumb';
+import NavBar from './NavBar';
+import Navigation from './Navigation';
 
-import './app.scss';
+
+
 
 class AdminLayout extends Component {
 
