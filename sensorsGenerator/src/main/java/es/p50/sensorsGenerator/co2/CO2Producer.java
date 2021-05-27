@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Service
 public class CO2Producer {
    
-    private static final String TOPIC = "p50-sensors-co2";
+    private static final String TOPIC = "esp50-sensors-co2";
   
     @Autowired
     KafkaTemplate<String, String> kafkaTemplate;

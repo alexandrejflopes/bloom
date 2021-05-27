@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Service
 public class HumidityProducer {
    
-    private static final String TOPIC = "p50-sensors-humidity";
+    private static final String TOPIC = "esp50-sensors-humidity";
   
     @Autowired
     KafkaTemplate<String, String> kafkaTemplate;
