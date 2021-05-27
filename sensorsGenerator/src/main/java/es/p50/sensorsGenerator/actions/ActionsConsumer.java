@@ -16,7 +16,7 @@ public class ActionsConsumer {
     @Autowired
     HumidityGenerator humidityGenerator;
 
-    @KafkaListener(topics = "p50-sensors-actions", groupId = "group_actionsConsumers")
+    @KafkaListener(topics = "esp50-sensors-actions", groupId = "group_actionsConsumers")
     public void consume(String actionString) {
         String[] actionArray = actionString.split("-");  
         Action action = new Action(actionArray[0], actionArray[1], actionArray[2], actionArray[3]);

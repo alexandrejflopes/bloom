@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class TemperatureProducer {
    
-    private static final String TOPIC = "p50-sensors-temperature";
+    private static final String TOPIC = "esp50-sensors-temperature";
 
     @Autowired
     KafkaTemplate<String, String> kafkaTemplate;
