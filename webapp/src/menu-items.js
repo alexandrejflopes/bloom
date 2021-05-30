@@ -12,6 +12,13 @@ export default {
                     type: 'item',
                     url: '/dashboard/default',
                     icon: 'feather icon-home',
+                },
+                {
+                    id: 'dashboard',
+                    title: 'Histórico',
+                    type: 'item',
+                    url: '/historic',
+                    icon: 'feather icon-activity',
                 }
             ]
         },

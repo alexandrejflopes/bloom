@@ -9,6 +9,8 @@ const Dashboard = React.lazy(() => import('./views/Dashboard'));
 
 const Settings = React.lazy(() => import('./views/Settings'));
 
+const Historic = React.lazy(() => import('./views/Historic'));
+
 
 const UIBasicButton = React.lazy(() => import('./components/UIElements/Button'));
 const UIBasicBadges = React.lazy(() => import('./components/UIElements/Badges'));
@@ -32,6 +34,7 @@ const OtherDocs = React.lazy(() => import('./components/Other/Docs'));
 const routes = [
     { path: '/dashboard', exact: true, name: 'Default', component: Dashboard },
     { path: '/settings', exact: true, name: 'Default', component: Settings },
+    { path: '/historic', exact: true, name: 'Default', component: Historic },
     { path: '/basic/button', exact: true, name: 'Basic Button', component: UIBasicButton },
     { path: '/basic/badges', exact: true, name: 'Basic Badges', component: UIBasicBadges },
     { path: '/basic/breadcrumb-paging', exact: true, name: 'Basic Breadcrumb Pagination', component: UIBasicBreadcrumbPagination },
