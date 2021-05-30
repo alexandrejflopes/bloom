@@ -19,24 +19,26 @@ pipeline {
 
     stages{
         stage('Test') {
-            dir('detectorApp'){
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    sh 'mvn test'
+            steps {
+                dir('detectorApp'){
+                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                        sh 'mvn test'
+                    }
                 }
-            }
-            dir('manageApp'){
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    sh 'mvn test'
+                dir('manageApp'){
+                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                        sh 'mvn test'
+                    }
                 }
-            }
-            dir('sensorsApp'){
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    sh 'mvn test'
+                dir('sensorsApp'){
+                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                        sh 'mvn test'
+                    }
                 }
-            }
-            dir('sensorsGenerator'){
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    sh 'mvn test'
+                dir('sensorsGenerator'){
+                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                        sh 'mvn test'
+                    }
                 }
             }
         }
