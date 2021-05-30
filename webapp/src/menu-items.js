@@ -16,6 +16,21 @@ export default {
             ]
         },
         {
+            id: 'navigation',
+            title: 'Configurações Bloom',
+            type: 'group',
+            icon: 'icon-settings',
+            children: [
+                {
+                    id: 'dashboard',
+                    title: 'Definições',
+                    type: 'item',
+                    url: '/settings',
+                    icon: 'feather icon-settings',
+                }
+            ]
+        },
+        {
             id: 'ui-element',
             title: 'UI ELEMENT',
             type: 'group',

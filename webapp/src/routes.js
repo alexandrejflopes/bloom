@@ -5,7 +5,10 @@ window.jQuery = $;
 window.$ = $;
 global.jQuery = $;
 
-const DashboardDefault = React.lazy(() => import('./components/Dashboard/Dashboard'));
+const Dashboard = React.lazy(() => import('./views/Dashboard'));
+
+const Settings = React.lazy(() => import('./views/Settings'));
+
 
 const UIBasicButton = React.lazy(() => import('./components/UIElements/Button'));
 const UIBasicBadges = React.lazy(() => import('./components/UIElements/Badges'));
@@ -27,7 +30,8 @@ const OtherSamplePage = React.lazy(() => import('./components/Other/SamplePage')
 const OtherDocs = React.lazy(() => import('./components/Other/Docs'));
 
 const routes = [
-    { path: '/dashboard', exact: true, name: 'Default', component: DashboardDefault },
+    { path: '/dashboard', exact: true, name: 'Default', component: Dashboard },
+    { path: '/settings', exact: true, name: 'Default', component: Settings },
     { path: '/basic/button', exact: true, name: 'Basic Button', component: UIBasicButton },
     { path: '/basic/badges', exact: true, name: 'Basic Badges', component: UIBasicBadges },
     { path: '/basic/breadcrumb-paging', exact: true, name: 'Basic Breadcrumb Pagination', component: UIBasicBreadcrumbPagination },
