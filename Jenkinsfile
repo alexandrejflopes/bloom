@@ -87,7 +87,7 @@ pipeline {
         }
 
 
-        /*stage('Build images'){
+        stage('Build images'){
             steps{
                 script{
                     docker.withRegistry('http://192.168.160.48:5000') {
@@ -133,7 +133,7 @@ pipeline {
                     sh 'docker rmi esp50/sensorsgenerator'
                 }
             }
-        }*/
+        }
 
         /*stage('Runtime Deployment') { 
             steps {
