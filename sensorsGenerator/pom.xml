@@ -8,7 +8,7 @@
 		<version>2.4.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>es.p50</groupId>
+	<groupId>pt.ua.deti.es.esp50</groupId>
 	<artifactId>sensorsGenerator</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>sensorsGenerator</name>
@@ -52,6 +52,19 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<distributionManagement>
+	    <repository>
+		<id>central</id>
+		<name>e7315e271819-releases</name>
+		<url>http://192.168.160.49:8081/artifactory/maven_es2021</url>
+	    </repository>
+	    <snapshotRepository>
+		<id>snapshots</id>
+		<name>e7315e271819-snapshots</name>
+		<url>http://192.168.160.49:8081/artifactory/maven_es2021</url>
+	    </snapshotRepository>
+	</distributionManagement>
 
 	<build>
 		<plugins>

@@ -77,14 +77,14 @@ pipeline {
         }
 
 
-        /*stage ('Deploy') {
+        stage ('Deploy') {
             steps{
                 sh 'mvn deploy -f detectorApp/pom.xml -s detectorApp/settings.xml'
                 sh 'mvn deploy -f manageApp/pom.xml -s manageApp/settings.xml'
                 sh 'mvn deploy -f sensorsApp/pom.xml -s sensorsApp/settings.xml'
                 sh 'mvn deploy -f sensorsGenerator/pom.xml -s sensorsGenerator/settings.xml' 
             }
-        }*/
+        }
 
 
         /*stage('Build images'){

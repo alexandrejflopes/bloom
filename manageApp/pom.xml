@@ -8,7 +8,7 @@
 		<version>2.5.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>ua.p50</groupId>
+	<groupId>pt.ua.deti.es.esp50</groupId>
 	<artifactId>manageApp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>manageApp</name>
@@ -43,6 +43,19 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<distributionManagement>
+	    <repository>
+		<id>central</id>
+		<name>e7315e271819-releases</name>
+		<url>http://192.168.160.49:8081/artifactory/maven_es2021</url>
+	    </repository>
+	    <snapshotRepository>
+		<id>snapshots</id>
+		<name>e7315e271819-snapshots</name>
+		<url>http://192.168.160.49:8081/artifactory/maven_es2021</url>
+	    </snapshotRepository>
+	</distributionManagement>
 
 	<build>
 		<plugins>
