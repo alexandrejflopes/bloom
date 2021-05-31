@@ -16,7 +16,8 @@ import ua.p50.sensorsApp.models.Temperature;
 @Service
 public class TemperatureService {
 
-    InfluxDB influxDB = InfluxDBFactory.connect("http://localhost:8086", "user", "~");
+    //InfluxDB influxDB = InfluxDBFactory.connect("http://localhost:8086", "user", "~");
+    InfluxDB influxDB = InfluxDBFactory.connect("http://192.168.160.18:8086", "user", "~");
 
     public void addTemperature(Temperature temperature) {
         influxDB.createDatabase("esp50sensors");
