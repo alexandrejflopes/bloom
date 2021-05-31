@@ -147,9 +147,9 @@ pipeline {
                         
                     }
 
-                    //sshCommand remote: remote, command: "docker stop esp50-sensorsgenerator"
-                    //sshCommand remote: remote, command: "docker rm esp50-sensorsgenerator"
-                    //sshCommand remote: remote, command: "docker rmi 192.168.160.48:5000/esp50/sensorsgenerator"
+                    sshCommand remote: remote, command: "docker stop esp50-sensorsgenerator"
+                    sshCommand remote: remote, command: "docker rm esp50-sensorsgenerator"
+                    sshCommand remote: remote, command: "docker rmi 192.168.160.48:5000/esp50/sensorsgenerator"
                     sshCommand remote: remote, command: "docker pull 192.168.160.48:5000/esp50/sensorsgenerator"
                     sshCommand remote: remote, command: "docker create -p 50090:50090 --name esp50-sensorsgenerator 192.168.160.48:5000/esp50/sensorsgenerator"
                     sshCommand remote: remote, command: "docker start esp50-sensorsgenerator"
