@@ -131,6 +131,7 @@ pipeline {
                     sh 'docker rmi esp50/manageapp'
                     sh 'docker rmi esp50/sensorsapp'
                     sh 'docker rmi esp50/sensorsgenerator'
+                    sh 'docker image ls'
                 }
             }
         }
