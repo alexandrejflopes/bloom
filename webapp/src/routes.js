@@ -11,6 +11,9 @@ const Settings = React.lazy(() => import('./views/Settings'));
 
 const Historic = React.lazy(() => import('./views/Historic'));
 
+//const Login = React.lazy(() => import('./views/Login'));
+
+
 
 const UIBasicButton = React.lazy(() => import('./components/UIElements/Button'));
 const UIBasicBadges = React.lazy(() => import('./components/UIElements/Badges'));
