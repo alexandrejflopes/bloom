@@ -1,0 +1,162 @@
+.estufa_dash{
+    margin-left: 25px;
+    height: 450px;
+    width: 1000px;
+}
+.estufa_div{
+    position: relative; 
+    left: 0; 
+    top: 0;
+}
+
+.fundo_estufa{
+    margin-left: 25px;
+    height: 450px;
+    width: 1000px;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.fundo_esquerda {
+    height: 250px;
+    width: 100px;
+    top: 120px;
+    margin-left: 25px;
+    background-color: rgba(243, 243, 243, 0.699);
+    position: absolute;
+  }
+
+.temperatura_esquerda{
+    position: absolute;
+    top: 145px;
+    left: 35px;
+    height: auto;
+    width: 80px;
+}
+
+.valor_temp_esquerda{
+    position: absolute;
+    top: 220px;
+    left: 60px;
+    font-weight: bold;
+    color: black;
+}
+
+.c02_esquerda{
+    position: absolute;
+    bottom: 105px;
+    left: 35px;
+    height: auto;
+    width: 80px;
+}
+
+.valor_c02_esquerda{
+    position: absolute;
+    bottom: 76px;
+    left: 48px;
+    font-weight: bold;
+    color: black;
+}
+
+.fundo_direita {
+    height: 250px;
+    width: 100px;
+    top: 120px;
+    right: 25px;
+    background-color: rgba(243, 243, 243, 0.699);
+    position: absolute;
+  }
+
+.temperatura_direita{
+    position: absolute;
+    top: 145px;
+    right: 35px;
+    height: auto;
+    width: 80px;
+}
+
+.valor_temp_direita{
+    position: absolute;
+    top: 220px;
+    right: 60px;
+    font-weight: bold;
+    color: black;
+}
+
+.c02_direita{
+    position: absolute;
+    bottom: 105px;
+    right: 35px;
+    height: auto;
+    width: 80px;
+}
+
+.valor_c02_direita{
+    position: absolute;
+    bottom: 76px;
+    right: 45px;
+    font-weight: bold;
+    color: black;
+}
+
+
+.tabuleiro1{
+    position: absolute;
+    top: 60px;
+    left: 180px;
+    height: 350px;
+    width: 200px;
+}
+
+.humidade_tab1_bg{
+    height: 35px;
+    width: 168px;
+    background-color: #58666B;
+    position: absolute;
+    left: 197px;
+    bottom:25px;
+    border-radius: 5px;
+}
+
+.tabuleiro2{
+    position: absolute;
+    top: 60px;
+    left: 425px;
+    height: 350px;
+    width: 200px;
+}
+
+.humidade_tab2_bg{
+    height: 35px;
+    width: 168px;
+    background-color: #58666B;
+    position: absolute;
+    left: 442px;
+    bottom:25px;
+    border-radius: 5px;
+}
+
+.tabuleiro3{
+    position: absolute;
+    top: 60px;
+    right: 180px;
+    height: 350px;
+    width: 200px;
+}
+
+.humidade_tab3_bg{
+    height: 35px;
+    width: 168px;
+    background-color: #58666B;
+    position: absolute;
+    right: 196px;
+    bottom:25px;
+    border-radius: 5px;
+}
+
+
+  
+
+/* ============================= */
+
