@@ -19,8 +19,8 @@ public class TemperatureService {
     InfluxDB influxDB = InfluxDBFactory.connect("http://localhost:8086", "user", "~");
 
     public void addTemperature(Temperature temperature) {
-        //influxDB.createDatabase("esp50sensors");
-        //influxDB.createRetentionPolicy("defaultPolicy", "esp50sensors", "30d", 1, true);
+        influxDB.createDatabase("esp50sensors");
+        influxDB.createRetentionPolicy("defaultPolicy", "esp50sensors", "30d", 1, true);
         Point point = Point.measurement("temperature")
         .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
         .addField("id", temperature.getId())
