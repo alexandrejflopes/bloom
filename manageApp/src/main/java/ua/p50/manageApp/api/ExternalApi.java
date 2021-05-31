@@ -17,7 +17,8 @@ public class ExternalApi{
 
         Temperature temperature = null;
         try {
-            String uRL = "http://localhost:50080/sensor/" + sensorId + "/readings/latest"; 
+            //String uRL = "http://localhost:50080/sensor/" + sensorId + "/readings/latest";
+            String uRL = "http://192.168.160.87:50080/sensor/" + sensorId + "/readings/latest"; 
             temperature = template.getForObject(uRL, Temperature.class);
         }
         catch (Exception e) {}
@@ -29,7 +30,8 @@ public class ExternalApi{
 
         List<Temperature> temperatures = null;
         try {
-            String uRL = "http://localhost:50080/sensor/" + sensorId + "/readings/all";
+            //String uRL = "http://localhost:50080/sensor/" + sensorId + "/readings/all";
+            String uRL = "http://192.168.160.87:50080/sensor/" + sensorId + "/readings/all";
             Temperature[] temperaturesArray = template.getForObject(uRL, Temperature[].class);
             temperatures = Arrays.asList(temperaturesArray);
         }

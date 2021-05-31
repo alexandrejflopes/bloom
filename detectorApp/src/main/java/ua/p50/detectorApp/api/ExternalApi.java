@@ -13,7 +13,8 @@ public class ExternalApi{
     public Temperature getCurrentTemperatureInfo(int sensorId) {
         Temperature temperature = null;
         try {
-            String uRL = "http://localhost:50080/sensor/" + sensorId + "/readings/latest"; // somewhere in Switzerland...
+            //String uRL = "http://localhost:50080/sensor/" + sensorId + "/readings/latest"; // somewhere in Switzerland...
+            String uRL = "http://192.168.160.87:50080/sensor/" + sensorId + "/readings/latest";
             temperature = template.getForObject(uRL, Temperature.class);
         }
         catch (Exception e) {}
