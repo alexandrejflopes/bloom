@@ -154,26 +154,26 @@ pipeline {
                     sshCommand remote: remote, command: "docker create -p 50090:50090 --name esp50-sensorsgenerator 192.168.160.48:5000/esp50/sensorsgenerator"
                     sshCommand remote: remote, command: "docker start esp50-sensorsgenerator"
                     
-                    /*sshCommand remote: remote, command: "docker stop esp50-sensorsapp"
-                    sshCommand remote: remote, command: "docker rm esp50-sensorsapp"
-                    sshCommand remote: remote, command: "docker rmi 192.168.160.48:5000/esp50/sensorsapp"
+                    //sshCommand remote: remote, command: "docker stop esp50-sensorsapp"
+                    //sshCommand remote: remote, command: "docker rm esp50-sensorsapp"
+                    //sshCommand remote: remote, command: "docker rmi 192.168.160.48:5000/esp50/sensorsapp"
                     sshCommand remote: remote, command: "docker pull 192.168.160.48:5000/esp50/sensorsapp"
                     sshCommand remote: remote, command: "docker create -p 50080:50080 --name esp50-sensorsapp 192.168.160.48:5000/esp50/sensorsapp"
                     sshCommand remote: remote, command: "docker start esp50-sensorsapp"
 
-                    sshCommand remote: remote, command: "docker stop esp50-detectorapp"
-                    sshCommand remote: remote, command: "docker rm esp50-detectorapp"
-                    sshCommand remote: remote, command: "docker rmi 192.168.160.48:5000/esp50/detectorapp"
+                    //sshCommand remote: remote, command: "docker stop esp50-detectorapp"
+                    //sshCommand remote: remote, command: "docker rm esp50-detectorapp"
+                    //sshCommand remote: remote, command: "docker rmi 192.168.160.48:5000/esp50/detectorapp"
                     sshCommand remote: remote, command: "docker pull 192.168.160.48:5000/esp50/detectorapp"
                     sshCommand remote: remote, command: "docker create -p 50050:50050 --name esp50-detectorapp 192.168.160.48:5000/esp50/detectorapp"
                     sshCommand remote: remote, command: "docker start esp50-detectorapp"
                      
-                    sshCommand remote: remote, command: "docker stop esp50-manageapp"
-                    sshCommand remote: remote, command: "docker rm esp50-manageapp"
-                    sshCommand remote: remote, command: "docker rmi 192.168.160.48:5000/esp50/manageapp"
+                    //sshCommand remote: remote, command: "docker stop esp50-manageapp"
+                    //sshCommand remote: remote, command: "docker rm esp50-manageapp"
+                    //sshCommand remote: remote, command: "docker rmi 192.168.160.48:5000/esp50/manageapp"
                     sshCommand remote: remote, command: "docker pull 192.168.160.48:5000/esp50/manageapp"
                     sshCommand remote: remote, command: "docker create -p 50060:50060 --name esp50-manageapp 192.168.160.48:5000/esp50/manageapp"
-                    sshCommand remote: remote, command: "docker start esp50-manageapp"*/
+                    sshCommand remote: remote, command: "docker start esp50-manageapp"
 
                 }
             }
