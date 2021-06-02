@@ -20,10 +20,12 @@ public class SensorService {
 
     InfluxDB influxDB = InfluxDBFactory.connect("http://"+IP+":8086", "user", "~");
 
+    InfluxDBResultMapper resultMapper = new InfluxDBResultMapper();
+
     public void addSensor(Sensor sensor) {
         
         influxDB.createDatabase("esp50sensors");
-        influxDB.createRetentionPolicy("defaultPolicy", "esp50sensors", "30d", 1, true);
+        influxDB.createRetentionPolicy("defaultPolicy", "esp50sensors", "1d", 1, true);
 
         Point point = Point.measurement("sensor")
         .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
@@ -41,14 +43,12 @@ public class SensorService {
 
     public List<Sensor> getAllSensor(int sensorId) {
         QueryResult queryResult = influxDB.query(new Query("SELECT * FROM sensor WHERE id=" + sensorId + " ORDER BY time DESC", "esp50sensors"));
-        InfluxDBResultMapper resultMapper = new InfluxDBResultMapper();
         List<Sensor> sensors = resultMapper.toPOJO(queryResult, Sensor.class);
         return sensors;
     }
 
     public Sensor getLatestSensor(int sensorId) {
         QueryResult queryResult = influxDB.query(new Query("SELECT * FROM sensor WHERE id=" + sensorId + " ORDER BY time DESC LIMIT 1", "esp50sensors"));
-        InfluxDBResultMapper resultMapper = new InfluxDBResultMapper();
         List<Sensor> sensors = resultMapper.toPOJO(queryResult, Sensor.class);
         return sensors.get(0);
     }
@@ -57,7 +57,6 @@ public class SensorService {
         List<Sensor> all = new ArrayList<Sensor>(); 
         for(int i=0;i<7;i++) {
             QueryResult queryResult = influxDB.query(new Query("SELECT * FROM sensor WHERE id=" + i + " ORDER BY time DESC LIMIT 1", "esp50sensors"));
-            InfluxDBResultMapper resultMapper = new InfluxDBResultMapper();
             List<Sensor> sensor = resultMapper.toPOJO(queryResult, Sensor.class);
             all.add(sensor.get(0));
         }
