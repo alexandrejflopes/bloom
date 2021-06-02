@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import ua.p50.sensorsApp.models.Sensor;
-import ua.p50.sensorsApp.services.SensorService;
+import ua.p50.sensorsApp.service.SensorService;
 
 @CrossOrigin 
 @RestController

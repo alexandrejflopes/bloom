@@ -1,4 +1,4 @@
-package ua.p50.sensorsApp.services;
+package ua.p50.sensorsApp.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +50,7 @@ public class SensorService {
     public Sensor getLatestSensor(int sensorId) {
         QueryResult queryResult = influxDB.query(new Query("SELECT * FROM sensor WHERE id=" + sensorId + " ORDER BY time DESC LIMIT 1", "esp50sensors"));
         List<Sensor> sensors = resultMapper.toPOJO(queryResult, Sensor.class);
+        System.out.println(queryResult);
         return sensors.get(0);
     }
 
