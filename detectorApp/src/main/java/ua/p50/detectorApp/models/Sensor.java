@@ -5,7 +5,7 @@ import java.time.Instant;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Temperature {
+public class Sensor {
 
     private Instant time;
     
@@ -23,7 +23,7 @@ public class Temperature {
 
     private int timestamp;
 
-    public Temperature() {
+    public Sensor() {
 
     }
 

@@ -1,7 +1,8 @@
 package ua.p50.sensorsApp.controllers;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -9,28 +10,36 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import ua.p50.sensorsApp.models.Temperature;
-import ua.p50.sensorsApp.services.TemperatureService;
+import ua.p50.sensorsApp.models.Sensor;
+import ua.p50.sensorsApp.services.SensorService;
 
 @CrossOrigin 
 @RestController
-public class TemperatureController {
+public class SensorController {
 
     @Autowired
-    private TemperatureService service;
+    private SensorService service;
 
     // http://localhost:50080/sensor/0/readings/latest   
     @CrossOrigin(origins="*")
     @GetMapping(value = "/sensor/{id}/readings/latest")
-    public Temperature latestSensorReading(@PathVariable("id") int id) {
-        return service.getLatestTemperature(id);
+    public Sensor latestSensorReading(@PathVariable("id") int id) {
+        return service.getLatestSensor(id);
     }
 
     // http://localhost:50080/sensor/0/readings/all 
     @CrossOrigin(origins="*")
     @GetMapping(value = "/sensor/{id}/readings/all")
-    public List<Temperature> allSensorReadings(@PathVariable("id") int id) {
-        return service.getAllTemperatures(id);
+    public List<Sensor> allSensorReadings(@PathVariable("id") int id) {
+        return service.getAllSensor(id);
     }
-
+    
+    // http://localhost:50080/sensor/all/latest-readings
+    @CrossOrigin(origins="*")
+    @GetMapping(value = "/sensor/all/latest-readings")
+    public List<Sensor> allLatestSensorsReadings() {
+        return service.getAllLatestSensors();
+    }
+    
+    
 }

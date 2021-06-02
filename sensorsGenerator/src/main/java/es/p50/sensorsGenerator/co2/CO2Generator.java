@@ -1,5 +1,6 @@
 package es.p50.sensorsGenerator.co2;
 
+import java.time.Instant;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class CO2Generator {
 
-    private final CO2 co2_1 = new CO2(5, "Double", "C02", "Parts per million", "ppm", 4200, 0);
-    private final CO2 co2_2 = new CO2(6, "Double", "C02", "Parts per million", "ppm", 4200, 0);
+    private final CO2 co2_1 = new CO2(5, "Double", "C02", "Parts per million", "ppm", 4200, Instant.now().getEpochSecond());
+    private final CO2 co2_2 = new CO2(6, "Double", "C02", "Parts per million", "ppm", 4200, Instant.now().getEpochSecond());
 
     @Autowired 
     CO2Producer producer;
@@ -25,14 +26,14 @@ public class CO2Generator {
 
     public void increaseC02_1() {
         this.co2_1.setValue((int)(this.co2_1.getValue()*10) + 1);
-        this.co2_1.setTimestamp(this.co2_1.getTimestamp() + 1);
+        this.co2_1.setTimestamp(Instant.now().getEpochSecond());
         producer.sendCO2(this.co2_1);
         //System.out.println("New co2 level publish on kafka.");
     }
 
     public void decreaseC02_1() {
         this.co2_1.setValue((int)(this.co2_1.getValue()*10) - 1);
-        this.co2_1.setTimestamp(this.co2_1.getTimestamp() + 1);
+        this.co2_1.setTimestamp(Instant.now().getEpochSecond());
         producer.sendCO2(this.co2_1);
         //System.out.println("New co2 level publish on kafka.");
     }
@@ -49,14 +50,14 @@ public class CO2Generator {
 
     public void increaseC02_2() {
         this.co2_2.setValue((int)(this.co2_2.getValue()*10) + 1);
-        this.co2_2.setTimestamp(this.co2_2.getTimestamp() + 1);
+        this.co2_2.setTimestamp(Instant.now().getEpochSecond());
         producer.sendCO2(this.co2_2);
         //System.out.println("New co2 level publish on kafka.");
     }
 
     public void decreaseC02_2() {
         this.co2_2.setValue((int)(this.co2_2.getValue()*10) -1);
-        this.co2_2.setTimestamp(this.co2_2.getTimestamp() + 1);
+        this.co2_2.setTimestamp(Instant.now().getEpochSecond());
         producer.sendCO2(this.co2_2);
         //System.out.println("New co2 level publish on kafka.");
     }
