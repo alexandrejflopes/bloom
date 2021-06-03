@@ -12,6 +12,7 @@ const sensorLigado = require('../assets/images/estufa/sensor_verde.svg');
 const sensorDesligado = require('../assets/images/estufa/sensor_branco.svg');
 
 function Dashboard (){
+  const[email, setEmail]=React.useState(localStorage.getItem('email'));
   const[temperaturaEsquerda, setTemperaturaEsquerda] = React.useState("22 ºC");
   const[co2Esquerda, setCo2Esquerda] = React.useState("980 ppm");
   const[temperaturaDireita, setTemperaturaDireita] = React.useState("22 ºC");
@@ -67,7 +68,7 @@ function Dashboard (){
         <Col>
           <Card>
             <Card.Header>
-              <Card.Title as="h5">Estado da sua estufa</Card.Title>
+              <Card.Title as="h5">Estado estufa de {email}</Card.Title>
               <span className="d-block m-t-5">Humidade, temperatura e CO2</span>
             </Card.Header>
             <Card.Body>
