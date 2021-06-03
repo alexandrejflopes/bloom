@@ -64,4 +64,19 @@ public class SensorService {
         return all;
     }
 
+    public List<Sensor> getAllLatestSensorsPerType(String type) {
+        List<Sensor> all = new ArrayList<Sensor>(); 
+        int start = 0;
+        int end = 1;
+        if(type.equals("temperature")) {start=0;end=1;}
+        else if(type.equals("humidity")) {start=2;end=4;}
+        else {start=5;end=6;};
+        for(int i=start;i<=end;i++) {
+            QueryResult queryResult = influxDB.query(new Query("SELECT * FROM sensor WHERE id=" + i + " ORDER BY time DESC LIMIT 1", "esp50sensors"));
+            List<Sensor> sensor = resultMapper.toPOJO(queryResult, Sensor.class);
+            all.add(sensor.get(0));
+        }
+        return all;
+    }
+
 }

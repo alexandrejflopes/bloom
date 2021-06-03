@@ -45,6 +45,13 @@ public class SensorController {
     public List<Sensor> allLatestSensorsReadings() {
         return service.getAllLatestSensors();
     }
+
+    // http://localhost:50060/sensor/temperature/latest-readings
+    @CrossOrigin(origins="*")
+    @GetMapping(value = "/sensor/{type}/latest-readings")
+    public List<Sensor> allLatestSensorsReadingsPerType(@PathVariable("type") String type) {
+        return service.getAllLatestSensorsPerType(type);
+    }
     
     // http://localhost:50060/sensor/0 
     @CrossOrigin(origins="*")
