@@ -12,28 +12,38 @@ import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 
+import static ua.p50.sensorsApp.utils.Utils.IP;
+
 @EnableKafka
 @Configuration
 public class KafkaConfig {
   
   @Bean
-  public ConsumerFactory<String, String> consumerFactory() {
-      Map<String, Object> map = new HashMap<>();
+  public Map<String, Object> consumerConfigs() {
+    Map<String, Object> props = new HashMap<>();
+    props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, IP+":9092");
+    props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+    props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+    props.put(ConsumerConfig.GROUP_ID_CONFIG, "group_sensorsConsumers");
 
-      map.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,"localhost:9092");
-      map.put(ConsumerConfig.GROUP_ID_CONFIG,"group_sensorsConsumers");
-      map.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class);
-      map.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class);
-      return new DefaultKafkaConsumerFactory<>(map);
+    return props;
   }
 
   @Bean
-  public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListner() {
-      ConcurrentKafkaListenerContainerFactory<String, String>
-      obj = new ConcurrentKafkaListenerContainerFactory<>();
-      obj.setConsumerFactory(consumerFactory());
-      return obj;
+  public ConsumerFactory<String, String> consumerFactory() {
+    return new DefaultKafkaConsumerFactory<>(consumerConfigs(), new StringDeserializer(),
+        new StringDeserializer());
   }
+
+  @Bean
+  public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
+    ConcurrentKafkaListenerContainerFactory<String, String> factory =
+        new ConcurrentKafkaListenerContainerFactory<>();
+    factory.setConsumerFactory(consumerFactory());
+
+    return factory;
+  }
+
 
 
 }

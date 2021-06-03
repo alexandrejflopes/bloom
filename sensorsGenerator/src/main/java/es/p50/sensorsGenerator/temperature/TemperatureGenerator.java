@@ -1,5 +1,6 @@
 package es.p50.sensorsGenerator.temperature;
 
+import java.time.Instant;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class TemperatureGenerator {
 
-    private final Temperature temp1 = new Temperature(0, "Double", "Temperature", "Celsius", 'C', 250, 0);
-    private final Temperature temp2 = new Temperature(1, "Double", "Temperature", "Celsius", 'C', 250, 0);
+    private final Temperature temp1 = new Temperature(0, "Double", "Temperature", "Celsius", 'C', 250, Instant.now().getEpochSecond());
+    private final Temperature temp2 = new Temperature(1, "Double", "Temperature", "Celsius", 'C', 250, Instant.now().getEpochSecond());
     
     private boolean action1 = false;
     private boolean action2 = false;
@@ -33,14 +34,14 @@ public class TemperatureGenerator {
 
     public void increaseTemperature1() {
         this.temp1.setValue((int)(this.temp1.getValue()*10) + 1);
-        this.temp1.setTimestamp(this.temp1.getTimestamp() + 1);
+        this.temp1.setTimestamp(Instant.now().getEpochSecond());
         producer.sendTemperature(this.temp1);
         //System.out.println("New temperature publish on kafka.");
     }
 
     public void decreaseTemperature1() {
         this.temp1.setValue((int)(this.temp1.getValue()*10) - 1);
-        this.temp1.setTimestamp(this.temp1.getTimestamp() + 1);
+        this.temp1.setTimestamp(Instant.now().getEpochSecond());
         producer.sendTemperature(this.temp1);
         //System.out.println("New temperature publish on kafka.");
     }
@@ -59,14 +60,14 @@ public class TemperatureGenerator {
 
     public void increaseTemperature2() {
         this.temp2.setValue((int)(this.temp2.getValue()*10) + 1);
-        this.temp2.setTimestamp(this.temp2.getTimestamp() + 1);
+        this.temp2.setTimestamp(Instant.now().getEpochSecond());
         producer.sendTemperature(this.temp2);
         //System.out.println("New temperature publish on kafka.");
     }
 
     public void decreaseTemperature2() {
         this.temp2.setValue((int)(this.temp2.getValue()*10) -1);
-        this.temp2.setTimestamp(this.temp2.getTimestamp() + 1);
+        this.temp2.setTimestamp(Instant.now().getEpochSecond());
         producer.sendTemperature(this.temp2);
         //System.out.println("New temperature publish on kafka.");
     }

@@ -6,35 +6,50 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import ua.p50.manageApp.models.Temperature;
+import ua.p50.manageApp.models.Sensor;
+
+import static ua.p50.manageApp.utils.Utils.IP;
 
 @Component
 public class ExternalApi{
 
     private RestTemplate template = new RestTemplate();
 
-    public Temperature getCurrentTemperatureInfo(int sensorId) {
+    public Sensor getCurrentSensorInfo(int sensorId) {
 
-        Temperature temperature = null;
+        Sensor sensor = null;
         try {
-            String uRL = "http://localhost:50080/sensor/" + sensorId + "/readings/latest"; 
-            temperature = template.getForObject(uRL, Temperature.class);
+            String uRL = "http://"+IP+":50080/sensor/" + sensorId + "/readings/latest"; 
+            sensor = template.getForObject(uRL, Sensor.class);
         }
         catch (Exception e) {}
-        return temperature;
+        return sensor;
         
     }
 
-    public List<Temperature> getAllTemperaturesInfo(int sensorId) {
+    public List<Sensor> getAllSensorInfo(int sensorId) {
 
-        List<Temperature> temperatures = null;
+        List<Sensor> sensors = null;
         try {
-            String uRL = "http://localhost:50080/sensor/" + sensorId + "/readings/all";
-            Temperature[] temperaturesArray = template.getForObject(uRL, Temperature[].class);
-            temperatures = Arrays.asList(temperaturesArray);
+            String uRL = "http://"+IP+":50080/sensor/" + sensorId + "/readings/all";
+            Sensor[] sensorsArray = template.getForObject(uRL, Sensor[].class);
+            sensors = Arrays.asList(sensorsArray);
         }
         catch (Exception e) {}        
-        return temperatures;
+        return sensors;
+        
+    }
+    
+    public List<Sensor> getAllLatestSensorsInfo() {
+
+        List<Sensor> sensors = null;
+        try {
+            String uRL = "http://"+IP+":50080/sensor/all/latest-readings";
+            Sensor[] sensorsArray = template.getForObject(uRL, Sensor[].class);
+            sensors = Arrays.asList(sensorsArray);
+        }
+        catch (Exception e) {}        
+        return sensors;
         
     }
 

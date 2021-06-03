@@ -1,30 +1,49 @@
-package ua.p50.manageApp.models;
+package ua.p50.sensorsApp.models;
 
 import java.time.Instant;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.influxdb.annotation.Column;
+import org.influxdb.annotation.Measurement;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Temperature {
+@Measurement(name = "sensor")
+public class Sensor {
 
+    @Column(name = "time")
     private Instant time;
     
+    @Column(name = "id")
     private int id;
 
+    @Column(name = "dataType")
     private String dataType;
 
+    @Column(name = "sensorType")
     private String sensorType;
 
+    @Column(name = "unit")
     private String unit;
 
+    @Column(name = "unitAbreviation")
     private String unitAbreviation;
 
+    @Column(name = "value")
     private double value;
 
-    private int timestamp;
+    @Column(name = "timestamp")
+    private long timestamp;
 
-    public Temperature() {
+    public Sensor() {
 
+    }
+
+    public Sensor(int id, String dataType, String sensorType, String unit, String unitAbreviartion, double value, long timestamp) {
+        this.id = id;
+        this.dataType = dataType;
+        this.sensorType = sensorType;
+        this.unit = unit;
+        this.unitAbreviation = unitAbreviartion;
+        this.value = value;
+        this.timestamp = timestamp;
     }
 
     public int getId() {
@@ -75,11 +94,12 @@ public class Temperature {
         this.value = value;
     }
 
-    public int getTimestamp() {
+    public long getTimestamp() {
         return this.timestamp;
     }
 
-    public void setTimestamp(int timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
+
 }

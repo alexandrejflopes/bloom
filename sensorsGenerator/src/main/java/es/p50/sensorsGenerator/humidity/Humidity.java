@@ -8,9 +8,9 @@ public class Humidity {
     private String unit;
     private char unitAbreviation;
     private double value;
-    private int timestamp;
+    private long timestamp;
 
-    public Humidity(int id, String dataType, String sensorType, String unit, char unitAbreviation, int value, int timestamp) {
+    public Humidity(int id, String dataType, String sensorType, String unit, char unitAbreviation, int value, long timestamp) {
         this.id = id;
         this.dataType = dataType;
         this.sensorType = sensorType;
@@ -68,11 +68,11 @@ public class Humidity {
         this.value = (double) value/10.0;
     }
 
-    public int getTimestamp() {
+    public long getTimestamp() {
         return this.timestamp;
     }
 
-    public void setTimestamp(int timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 

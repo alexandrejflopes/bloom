@@ -1,5 +1,6 @@
 package es.p50.sensorsGenerator.humidity;
 
+import java.time.Instant;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class HumidityGenerator {
 
-    private final Humidity humidity1 = new Humidity(2, "Double", "Humidity", "Percentage", '%', 180, 0);
-    private final Humidity humidity2 = new Humidity(3, "Double", "Humidity", "Percentage", '%', 670, 0);
-    private final Humidity humidity3 = new Humidity(4, "Double", "Humidity", "Percentage", '%', 500, 0);
+    private final Humidity humidity1 = new Humidity(2, "Double", "Humidity", "Percentage", '%', 180, Instant.now().getEpochSecond());
+    private final Humidity humidity2 = new Humidity(3, "Double", "Humidity", "Percentage", '%', 670, Instant.now().getEpochSecond());
+    private final Humidity humidity3 = new Humidity(4, "Double", "Humidity", "Percentage", '%', 500, Instant.now().getEpochSecond());
 
     private boolean action1 = false;
     private boolean action2 = false;
@@ -36,7 +37,7 @@ public class HumidityGenerator {
     public void increaseHumidity1() {
         if(this.humidity1.getValue()!=100) {
             this.humidity1.setValue((int)(this.humidity1.getValue()*10) + 10);
-            this.humidity1.setTimestamp(this.humidity1.getTimestamp() + 1);
+            this.humidity1.setTimestamp(Instant.now().getEpochSecond());
             producer.sendHumidity(this.humidity1);
             //System.out.println("New humidity level publish on kafka.");
         }
@@ -46,7 +47,7 @@ public class HumidityGenerator {
     public void decreaseHumidity1() {
         if(this.humidity1.getValue()!=0) {
             this.humidity1.setValue((int)(this.humidity1.getValue()*10) - 10);
-            this.humidity1.setTimestamp(this.humidity1.getTimestamp() + 1);
+            this.humidity1.setTimestamp(Instant.now().getEpochSecond());
             producer.sendHumidity(this.humidity1);
             //System.out.println("New humidity level publish on kafka.");
         }
@@ -68,7 +69,7 @@ public class HumidityGenerator {
     public void increaseHumidity2() {
         if(this.humidity2.getValue()!=100) {
             this.humidity2.setValue((int)(this.humidity2.getValue()*10) + 10);
-            this.humidity2.setTimestamp(this.humidity2.getTimestamp() + 1);
+            this.humidity2.setTimestamp(Instant.now().getEpochSecond());
             producer.sendHumidity(this.humidity2);
             //System.out.println("New humidity level publish on kafka.");
         }
@@ -78,7 +79,7 @@ public class HumidityGenerator {
     public void decreaseHumidity2() {
         if(this.humidity2.getValue()!=0) {
             this.humidity2.setValue((int)(this.humidity2.getValue()*10) - 10);
-            this.humidity2.setTimestamp(this.humidity2.getTimestamp() + 1);
+            this.humidity2.setTimestamp(Instant.now().getEpochSecond());
             producer.sendHumidity(this.humidity2);
             //System.out.println("New humidity level publish on kafka.");
         }
@@ -100,7 +101,7 @@ public class HumidityGenerator {
     public void increaseHumidity3() {
         if(this.humidity3.getValue()!=100) {
             this.humidity3.setValue((int)(this.humidity3.getValue()*10) + 10);
-            this.humidity3.setTimestamp(this.humidity3.getTimestamp() + 1);
+            this.humidity3.setTimestamp(Instant.now().getEpochSecond());
             producer.sendHumidity(this.humidity3);
             //System.out.println("New humidity level publish on kafka.");
         }
@@ -110,7 +111,7 @@ public class HumidityGenerator {
     public void decreaseHumidity3() {
         if(this.humidity3.getValue()!=0) {
             this.humidity3.setValue((int)(this.humidity3.getValue()*10) - 10);
-            this.humidity3.setTimestamp(this.humidity3.getTimestamp() + 1);
+            this.humidity3.setTimestamp(Instant.now().getEpochSecond());
             producer.sendHumidity(this.humidity3);
             //System.out.println("New humidity level publish on kafka.");
         }
