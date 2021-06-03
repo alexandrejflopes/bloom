@@ -1,19 +1,18 @@
 FROM node:latest
 
-
-
 # set working directory
 WORKDIR /app
+ENV PATH /app/node_modules/.bin:$PATH
 
 COPY package.json /app/package.json
-COPY ./build /app/build
+COPY package-lock.json /app/package-lock.json
 COPY ./src /app/src
 COPY ./public /app/public
+#COPY . /app
 
 RUN npm install npm@latest
 RUN npm install
 
-ENV PATH /app/node_modules/.bin:$PATH
 
 
 # port in the Runtime VM
