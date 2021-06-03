@@ -11,6 +11,7 @@ pipeline {
         manage_app = ""
         sensors_app = ""
         sensors_generator = ""
+        frontend_app = ""
     }
 
     tools {
@@ -102,6 +103,9 @@ pipeline {
                     docker.withRegistry('http://192.168.160.48:5000') {
                             sensors_generator = docker.build("esp50/sensorsgenerator", "./sensorsGenerator")
                     }
+                    docker.withRegistry('http://192.168.160.48:5000') {
+                            frontend_app = docker.build("esp50/webapp", "./webapp")
+                    }
                 }
             }
         }
@@ -126,11 +130,16 @@ pipeline {
                         // Push the container to the custom Registry 
                         sensors_generator.push()
                     }
+                    docker.withRegistry('http://192.168.160.48:5000') {
+                        // Push the container to the custom Registry 
+                        frontend_app.push()
+                    }
 
                     sh 'docker rmi esp50/detectorapp'
                     sh 'docker rmi esp50/manageapp'
                     sh 'docker rmi esp50/sensorsapp'
                     sh 'docker rmi esp50/sensorsgenerator'
+                    sh 'docker rmi esp50/webapp'
                     sh 'docker image ls'
                 }
             }
@@ -174,6 +183,13 @@ pipeline {
                     sshCommand remote: remote, command: "docker pull 192.168.160.48:5000/esp50/manageapp"
                     sshCommand remote: remote, command: "docker create -p 50060:50060 --name esp50-manageapp 192.168.160.48:5000/esp50/manageapp"
                     sshCommand remote: remote, command: "docker start esp50-manageapp"
+                     
+                    //sshCommand remote: remote, command: "docker stop esp50-webapp"
+                    //sshCommand remote: remote, command: "docker rm esp50-webapp"
+                    //sshCommand remote: remote, command: "docker rmi 192.168.160.48:5000/esp50/webapp"
+                    sshCommand remote: remote, command: "docker pull 192.168.160.48:5000/esp50/webapp"
+                    sshCommand remote: remote, command: "docker create -p 50030:50030 --name esp50-webapp 192.168.160.48:5000/esp50/webapp"
+                    sshCommand remote: remote, command: "docker start esp50-webapp"
 
                 }
             }
