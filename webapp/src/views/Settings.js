@@ -6,7 +6,6 @@ import "../assets/css/settings.css"
 
 function Settings() {
     const[email, setEmail]=React.useState(localStorage.getItem('email'));
-    console.log("email ", email);
     return (
         <Aux>
             <Row>

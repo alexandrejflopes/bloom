@@ -31,7 +31,7 @@ function Login(){
                             </div>
                             <h3 className="mb-4">Iniciar sessão</h3>
                             <div className="input-group mb-3">
-                                <input type="email" className="form-control" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)}/>
+                                <input type="email" id="email_field" className="form-control email_field" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)}/>
                             </div>
                             <div className="input-group mb-4">
                                 <input type="password" className="form-control" placeholder="password" value={password} onChange={e => setPassword(e.target.value)}/>
@@ -41,7 +41,7 @@ function Login(){
                                     pathname: "/dashboard",
                                 }}
                             >
-                                <button className="btn btn-primary shadow-2 mb-4" onClick={() => checkUser()}>Entrar</button>
+                                <button className="btn btn-primary shadow-2 mb-4" id="entrar_button" onClick={() => checkUser()}>Entrar</button>
                             </Link>
                         </div>
                     </div>

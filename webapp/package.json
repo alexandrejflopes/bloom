@@ -5,6 +5,9 @@
   "homepage": "http://lite.codedthemes.com",
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "chai": "^4.3.4",
+    "chromedriver": "^91.0.0",
+    "cucumber": "^6.0.5",
     "font-awesome": "^4.7.0",
     "google-maps-react": "^2.0.2",
     "jquery": "^3.4.0",
@@ -21,7 +24,8 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "^3.0.0",
     "react-window-size": "^1.2.2",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "selenium-webdriver": "^4.0.0-beta.3"
   },
   "scripts": {
     "start": "react-scripts start",

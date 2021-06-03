@@ -68,7 +68,7 @@ function Dashboard (){
         <Col>
           <Card>
             <Card.Header>
-              <Card.Title as="h5">Estado estufa de {email}</Card.Title>
+              <Card.Title as="h5" className="titulo_estufa" id="titulo_estufa">Estado da estufa de {email}</Card.Title>
               <span className="d-block m-t-5">Humidade, temperatura e CO2</span>
             </Card.Header>
             <Card.Body>
