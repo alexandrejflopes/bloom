@@ -45,18 +45,6 @@ function Settings() {
                                                     </Form.Group>
                                                 </Col>
                                             </Tab>
-                                            <Tab eventKey="co2" title="CO2">
-                                                <Col md={6}>
-                                                    <Form.Group controlId="limiteMinimoCo2">
-                                                        <Form.Label>Limite Mínimo</Form.Label>
-                                                        <Form.Control type="text" placeholder="Valor mínimo aceitável" />
-                                                    </Form.Group>
-                                                    <Form.Group controlId="limiteMaximoCo2">
-                                                        <Form.Label>Limite Máximo</Form.Label>
-                                                        <Form.Control type="text" placeholder="Valor máximo aceitável" />
-                                                    </Form.Group>
-                                                </Col>
-                                            </Tab>
                                         </Tabs>
                                     <Button variant="outline-dark" className="guardar_bt">Guardar</Button>
                                 </Col>
