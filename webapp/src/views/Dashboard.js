@@ -1,15 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 import "../assets/css/estufa.css";
+// IMAGENS
+import iconeCO2 from '../assets/images/estufa/co2.svg';
+import fundoEstufa from '../assets/images/estufa/fundo_estufa.png';
+import sensorDesligado from '../assets/images/estufa/sensor_branco.svg';
+import sensorLigado from '../assets/images/estufa/sensor_verde.svg';
+import tabuleiroImg from '../assets/images/estufa/tabuleiro_branco.svg';
+import iconeTemperatura from '../assets/images/estufa/temperatura.svg';
 import Aux from "../hoc/_Aux";
 
-// IMAGENS
-const fundoEstufa = require('../assets/images/estufa/fundo_estufa.png');
-const iconeTemperatura = require('../assets/images/estufa/temperatura.svg');
-const iconeCO2 = require('../assets/images/estufa/co2.svg');
-const tabuleiroImg = require('../assets/images/estufa/tabuleiro_branco.svg');
-const sensorLigado = require('../assets/images/estufa/sensor_verde.svg');
-const sensorDesligado = require('../assets/images/estufa/sensor_branco.svg');
+
 
 function Dashboard (){
   const[email, setEmail]=React.useState(localStorage.getItem('email'));
