@@ -34,25 +34,25 @@ function Dashboard (){
   };
 
   const fetchTemperaturaEsquerda = async () => {
-    const fetchItem = await fetch('http://192.168.160.87:50080/sensor/0/readings/latest');
+    const fetchItem = await fetch('http://192.168.160.87:50060/sensor/0/readings/latest');
     const item = await fetchItem.json();
     setTemperaturaEsquerda(item.value);
   };
 
   const fetchTemperaturaDireita = async () => {
-    const fetchItem = await fetch('http://192.168.160.87:50080/sensor/1/readings/latest');
+    const fetchItem = await fetch('http://192.168.160.87:50060/sensor/1/readings/latest');
     const item = await fetchItem.json();
     setTemperaturaDireita(item.value);
   };
 
   const fetchCO2Esquerda = async () => {
-    const fetchItem = await fetch('http://192.168.160.87:50080/sensor/5/readings/latest');
+    const fetchItem = await fetch('http://192.168.160.87:50060/sensor/5/readings/latest');
     const item = await fetchItem.json();
     setCo2Esquerda(item.value);
   };
 
   const fetchCO2Direita = async () => {
-    const fetchItem = await fetch('http://192.168.160.87:50080/sensor/6/readings/latest');
+    const fetchItem = await fetch('http://192.168.160.87:50060/sensor/6/readings/latest');
     const item = await fetchItem.json();
     setCo2Direita(item.value);
   };
