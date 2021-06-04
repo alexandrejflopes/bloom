@@ -1,10 +1,11 @@
 import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
-import Breadcrumb from '../App/layout/AdminLayout/Breadcrumb'
+import { Link } from 'react-router-dom';
+import Breadcrumb from '../App/layout/AdminLayout/Breadcrumb';
+import "../assets/css/login.css";
 //import '../../assets/scss/style.scss';
 import '../assets/css/style.css';
+import logoPreto from '../assets/images/logo_preto.png';
 import Aux from "../hoc/_Aux";
-import "../assets/css/login.css";
 
 
 function Login(){
@@ -27,7 +28,7 @@ function Login(){
                     <div className="card">
                         <div className="card-body text-center">
                             <div className="mb-4">
-                                <img className="logo-dark" src={require('../assets/images/logo_preto.png')} />
+                                <img className="logo-dark" src={logoPreto} />
                             </div>
                             <h3 className="mb-4">Iniciar sessão</h3>
                             <div className="input-group mb-3">

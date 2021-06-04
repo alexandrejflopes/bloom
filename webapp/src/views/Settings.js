@@ -1,8 +1,8 @@
 import React from 'react';
-import {Row, Col, Card, Form, Button, InputGroup, FormControl, DropdownButton, Dropdown, Tab, Tabs} from 'react-bootstrap';
-
+import { Button, Card, Col, Form, Row, Tab, Tabs } from 'react-bootstrap';
+import "../assets/css/settings.css";
 import Aux from "../hoc/_Aux";
-import "../assets/css/settings.css"
+
 
 function Settings() {
     const[email, setEmail]=React.useState(localStorage.getItem('email'));
