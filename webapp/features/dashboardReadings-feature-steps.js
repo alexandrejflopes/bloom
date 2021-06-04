@@ -1,3 +1,4 @@
+require('chromedriver');
 const { Given, When, Then, AfterAll } = require('cucumber');
 const { Builder, By, Key } = require('selenium-webdriver');
 const { expect } = require('chai')
@@ -5,21 +6,21 @@ const { expect } = require('chai')
 
 const driver = new Builder().forBrowser('chrome').build();
 
-Given('I am on the Dashboard page', { timeout: 10000 }, async function () {
-  await driver.get("http://localhost:3000/dashboard");
+Given('I am on the Dashboard page', { timeout: 10000 }, function () {
+  return driver.get("http://localhost:3000/dashboard");
 });
 
 // ============
 // TEMPERATURA 
 // ============
 
-When('the temperature readings area is present', async function (string) {
-  await driver.sleep(3000); // wait for data to load
+When('the temperature readings area is present', { timeout: 5000 }, async function () {
+  await driver.sleep(5000); // wait for data to load
   const tempEsquerda = await driver.findElement(By.id('temperaturaEsquerda_div'));
   const tempDireita = await driver.findElement(By.id('temperaturaDireita_div'));
 
-  return expect(tempEsquerda.isDisplayed()).to.be.true && expect(tempDireita.isDisplayed()).to.be.true;
-  //expect(element.isPresent().to.be.false);
+  expect(tempDireita.isDisplayed()).to.be.true;
+  expect(element.isPresent().to.be.false);
 });
 
 Then('the values of temperature sensors must be visible', async function () {
@@ -35,8 +36,8 @@ Then('the values of temperature sensors must be visible', async function () {
 // CO2 
 // ============
 
-When('the CO2 readings area is present', async function (string) {
-  await driver.sleep(3000); // wait for data to load
+When('the CO2 readings area is present', { timeout: 5000 }, async function (string) {
+  await driver.sleep(5000); // wait for data to load
   const co2Esquerda = await driver.findElement(By.id('co2Esquerda_div'));
   const co2Direita = await driver.findElement(By.id('co2Direita_div'));
 
@@ -56,8 +57,8 @@ Then('the values of CO2 sensors must be visible', async function () {
 // ============
 
 
-When('the plant tray are present', async function () {
-  await driver.sleep(3000); // wait for data to load
+When('the plant tray are present', { timeout: 5000 }, async function () {
+  await driver.sleep(5000); // wait for data to load
   const colunaTabuleiro = await driver.findElement(By.css(".classe_teste"));
 
   return expect(colunaTabuleiro.isDisplayed()).to.be.true;
@@ -75,4 +76,9 @@ Then('the value of that humidity sensor must be visible', async function () {
   const leituraHumidade = await driver.findElement(By.name("humidade_valor"));
 
   return expect(leituraHumidade.isDisplayed()).to.be.true;
+});
+
+
+AfterAll('end', async function () {
+  await driver.quit();
 });

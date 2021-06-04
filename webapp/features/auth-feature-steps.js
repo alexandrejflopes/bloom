@@ -1,4 +1,5 @@
 //const assert = require('assert');
+require('chromedriver');
 const { Given, When, Then, AfterAll} = require('cucumber');
 const { Builder, By, Key } = require('selenium-webdriver');
 const { expect } = require('chai')
