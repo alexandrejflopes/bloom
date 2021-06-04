@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:14-alpine
 
 # set working directory
 WORKDIR /app
@@ -9,6 +9,8 @@ COPY package-lock.json /app/package-lock.json
 COPY ./src /app/src
 COPY ./public /app/public
 #COPY . /app
+
+RUN CI=true
 
 RUN npm install npm@latest
 RUN npm install
