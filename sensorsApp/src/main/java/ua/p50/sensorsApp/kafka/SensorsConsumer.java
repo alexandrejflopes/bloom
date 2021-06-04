@@ -7,10 +7,10 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 import ua.p50.sensorsApp.models.Sensor;
-import ua.p50.sensorsApp.services.SensorService;
+import ua.p50.sensorsApp.service.SensorService;
 
 @Component
-public class SensorConsumers {
+public class SensorsConsumer {
   
     @Autowired
     private SensorService service;
