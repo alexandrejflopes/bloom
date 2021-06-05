@@ -32,30 +32,35 @@ function Dashboard (){
 
   const fetchTabuleiros = async () => {
     const fetchItem = await fetch(API_URL + '/sensor/humidity/latest-readings');
+    console.log("fetched Tabuleiros");
     const item = await fetchItem.json();
     construirTabuleiros(item);
   };
 
   const fetchTemperaturaEsquerda = async () => {
     const fetchItem = await fetch(API_URL + '/sensor/0/readings/latest');
+    console.log("fetched TemperaturaEsquerda");
     const item = await fetchItem.json();
     setTemperaturaEsquerda(item.value);
   };
 
   const fetchTemperaturaDireita = async () => {
     const fetchItem = await fetch(API_URL + '/sensor/1/readings/latest');
+    console.log("fetched TemperaturaDireita");
     const item = await fetchItem.json();
     setTemperaturaDireita(item.value);
   };
 
   const fetchCO2Esquerda = async () => {
     const fetchItem = await fetch(API_URL + '/sensor/5/readings/latest');
+    console.log("fetched CO2Esquerda");
     const item = await fetchItem.json();
     setCo2Esquerda(item.value);
   };
 
   const fetchCO2Direita = async () => {
     const fetchItem = await fetch(API_URL + '/sensor/6/readings/latest');
+    console.log("fetched CO2Direita");
     const item = await fetchItem.json();
     setCo2Direita(item.value);
   };
@@ -86,7 +91,7 @@ function Dashboard (){
               {/*<div style={{ backgroundImage: `url(${fundoEstufa})`, backgroundSize: "cover", backgroundRepeat: "no-repeat", height: "800px", width: "inherit" }}>*/}
                 
                 {
-                email && temperaturaEsquerda && temperaturaEsquerda && co2Esquerda && co2Direita && tabuleirosTeste.length > 0 ?
+                temperaturaEsquerda && temperaturaEsquerda && co2Esquerda && co2Direita && tabuleirosTeste.length > 0 ?
                   
                     /** linha para o layout todo, com a imagem da estufa como fundo */ 
                   <Row className="d-flex justify-content-between pb-5 pt-4" style={{ width: "inherit", height: "auto", backgroundImage: `url(${fundoEstufa})`, backgroundSize: "cover", backgroundRepeat: "no-repeat" }}>
