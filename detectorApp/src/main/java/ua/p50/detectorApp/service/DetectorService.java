@@ -39,16 +39,16 @@ public class DetectorService {
         if (currentSensor.getValue() > 26) {
             if (!airConditioningOnSensor0) {
                 airConditioningOnSensor0 = true;
-                action = new Action("0", "Sensor", Long.toString(System.currentTimeMillis()),"airConditioningOn");
-                alarm = new Alarm("0", "Sensor", "26", "HIGH", Long.toString(System.currentTimeMillis()));
+                action = new Action("0", "Temperature", Long.toString(System.currentTimeMillis()),"airConditioningOn");
+                alarm = new Alarm("0", "Temperature", "26", "HIGH", Long.toString(System.currentTimeMillis()));
                 System.out.println("Air conditioning ON for temperature sensor 0");
             }
         }
         else if (currentSensor.getValue() < 24) {
             if (airConditioningOnSensor0) {
                 airConditioningOnSensor0 = false;
-                action = new Action("0", "Sensor", Long.toString(System.currentTimeMillis()),"airConditioningOff");
-                alarm = new Alarm("0", "Sensor", "24", "LOW", Long.toString(System.currentTimeMillis()));
+                action = new Action("0", "Temperature", Long.toString(System.currentTimeMillis()),"airConditioningOff");
+                alarm = new Alarm("0", "Temperature", "24", "LOW", Long.toString(System.currentTimeMillis()));
                 System.out.println("Air conditioning OFF for temperature sensor 0");
             }
         }
@@ -79,7 +79,7 @@ public class DetectorService {
             if (airConditioningOnSensor1) {
                 airConditioningOnSensor1 = false;
                 action = new Action("1", "Temperature", Long.toString(System.currentTimeMillis()),"airConditioningOff");
-                alarm = new Alarm("1", "Temperature", "26", "LOW", Long.toString(System.currentTimeMillis()));
+                alarm = new Alarm("1", "Temperature", "24", "LOW", Long.toString(System.currentTimeMillis()));
                 System.out.println("Air conditioning OFF for temperature sensor 1");
             }
         }
@@ -155,7 +155,7 @@ public class DetectorService {
 
         Action action = null;
         Alarm alarm = null;
-        Sensor currentSensor = restUtil.getCurrentSensorInfo(2);
+        Sensor currentSensor = restUtil.getCurrentSensorInfo(4);
 
         if (currentSensor.getValue() > 70) {
             if (!wateringSensor4) {
