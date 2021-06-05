@@ -160,3 +160,15 @@
 
 /* ============================= */
 
+.classe_teste {
+  cursor: initial;
+}
+
+
+.rodape_humidade {
+  background-color: #58666B;
+  width: 250px;
+  height: 70px;
+  border-radius: 7px 7px 7px 7px;
+  flex-direction: column;
+}

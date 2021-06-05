@@ -4,7 +4,7 @@ import Breadcrumb from '../App/layout/AdminLayout/Breadcrumb';
 import "../assets/css/login.css";
 //import '../../assets/scss/style.scss';
 import '../assets/css/style.css';
-import logoPreto from '../assets/images/logo_preto.png';
+import logoPreto from '../assets/images/logo_preto.svg';
 import Aux from "../hoc/_Aux";
 
 
