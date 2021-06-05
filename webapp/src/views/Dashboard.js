@@ -14,54 +14,62 @@ import Aux from "../hoc/_Aux";
 
 function Dashboard (){
   const[email, setEmail]=React.useState(localStorage.getItem('email'));
-  const[temperaturaEsquerda, setTemperaturaEsquerda] = React.useState("22 ºC");
-  const[co2Esquerda, setCo2Esquerda] = React.useState("980 ppm");
-  const[temperaturaDireita, setTemperaturaDireita] = React.useState("22 ºC");
-  const[co2Direita, setCo2Direita] = React.useState("980 ppm");
-  //const [tabuleiros, setTabuleiros] = React.useState([]);
-  const [tabuleiros, setTabuleiros] = React.useState([
-    {
-      id:   1,
-      ligado: true,
-      value: "60%" 
-    },
-    {
-      id:   2,
-      ligado: false,
-      value: "---" 
-    }
-    ,
-    {
-      id:   3,
-      ligado: false,
-      value: "---" 
-    }
-  ]);
+  const[temperaturaEsquerda, setTemperaturaEsquerda] = React.useState('');
+  const[co2Esquerda, setCo2Esquerda] = React.useState('');
+  const[temperaturaDireita, setTemperaturaDireita] = React.useState('');
+  const[co2Direita, setCo2Direita] = React.useState('');
+  const [tabuleirosTeste, setTabuleirosTeste] = React.useState([]);
   
-  
-  /*
   useEffect(() => {
-    fetchState();
-  })
+    fetchTabuleiros();
+    fetchTemperaturaEsquerda();
+    fetchTemperaturaDireita();
+    fetchCO2Esquerda();
+    fetchCO2Direita();
+  });
 
-  const fetchState = async () => {
-    const fetchItem = await fetch('http://192.168.160.87:50080/sensor/0/readings/latest');
+  const fetchTabuleiros = async () => {
+    const fetchItem = await fetch('http://192.168.160.87:50060/sensor/humidity/latest-readings');
     const item = await fetchItem.json();
     construirTabuleiros(item);
   };
 
+  const fetchTemperaturaEsquerda = async () => {
+    const fetchItem = await fetch('http://192.168.160.87:50060/sensor/0/readings/latest');
+    const item = await fetchItem.json();
+    setTemperaturaEsquerda(item.value);
+  };
+
+  const fetchTemperaturaDireita = async () => {
+    const fetchItem = await fetch('http://192.168.160.87:50060/sensor/1/readings/latest');
+    const item = await fetchItem.json();
+    setTemperaturaDireita(item.value);
+  };
+
+  const fetchCO2Esquerda = async () => {
+    const fetchItem = await fetch('http://192.168.160.87:50060/sensor/5/readings/latest');
+    const item = await fetchItem.json();
+    setCo2Esquerda(item.value);
+  };
+
+  const fetchCO2Direita = async () => {
+    const fetchItem = await fetch('http://192.168.160.87:50060/sensor/6/readings/latest');
+    const item = await fetchItem.json();
+    setCo2Direita(item.value);
+  };
+
   const construirTabuleiros = (item) => {
-    setTabuleiros(
-        item.map(i =>{
-            return{
-                id: i.id,
-                ligado: true,
-                valor: i.value,
-            }
-        })
+    setTabuleirosTeste(
+      item.map(i =>{
+        return{
+          id:i.id,
+          ligado:true,
+          value:i.value,
+        }
+      })
     )
   } 
-  */
+
   return (
       
     <Aux>
@@ -85,14 +93,14 @@ function Dashboard (){
                       <div style={{ textAlign: "center"}} >
                         <img style={{ width: "80px", height: "auto" }} alt="iconTemperatura" src={iconeTemperatura}></img>
                         <div style={{ fontWeight: "bold", color: "black", marginTop: "5px", marginBottom: "5px", textAlign: "center" }}>
-                          {temperaturaEsquerda}
+                          {temperaturaEsquerda}ºC
                         </div>
                       </div>
                       {/** co2 */}
                       <div style={{ textAlign: "center" }} >
                         <img style={{ width: "80px", height: "auto" }} alt="iconCO2" src={iconeCO2}></img>
                         <div style={{ fontWeight: "bold", color: "black", marginTop: "5px", marginBottom: "5px", textAlign: "center" }}>
-                          {co2Esquerda}
+                          {co2Esquerda} ppm
                         </div>
                       </div>
                     </div>
@@ -102,7 +110,7 @@ function Dashboard (){
                   <Col xl="8" lg="8" md="6" className="d-flex justify-content-center align-items-center flex-column" >
                     <Row className="d-flex justify-content-between align-items-center" >
                       { /** uma coluna para cada tabuleiro  */ }
-                        {tabuleiros.map((tabuleiro, index) => (
+                        {tabuleirosTeste.map((tabuleiro, index) => (
                             <Col key={tabuleiro.id} xl="4" lg="12" md="12" sm="12" xs="12" className="d-flex justify-content-center align-items-center flex-column" >
                               {/** imagem do tabuleiro */}
                               <div style={{ textAlign: "center" }}>
@@ -129,14 +137,14 @@ function Dashboard (){
                       <div style={{ textAlign: "center" }} >
                         <img style={{ width: "80px", height: "auto" }} alt="iconTemperatura" src={iconeTemperatura}></img>
                         <div style={{ fontWeight: "bold", color: "black", marginTop: "5px", marginBottom: "5px", textAlign: "center" }}>
-                          {temperaturaDireita}
+                          {temperaturaDireita}ºC
                         </div>
                       </div>
                     {/** co2 */}
                       <div style={{ textAlign: "center" }} >
                         <img style={{ width: "80px", height: "auto" }} alt="iconCO2" src={iconeCO2}></img>
                         <div style={{ fontWeight: "bold", color: "black", marginTop: "5px", marginBottom: "5px", textAlign: "center" }}>
-                          {co2Direita}
+                          {co2Direita} ppm
                         </div>
                       </div>
                     </div>
