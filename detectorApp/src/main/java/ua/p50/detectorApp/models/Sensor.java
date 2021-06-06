@@ -26,6 +26,16 @@ public class Sensor {
     public Sensor() {
 
     }
+    
+    public Sensor(int id, String dataType, String sensorType, String unit, String unitAbreviartion, double value, int timestamp) {
+        this.id = id;
+        this.dataType = dataType;
+        this.sensorType = sensorType;
+        this.unit = unit;
+        this.unitAbreviation = unitAbreviartion;
+        this.value = value;
+        this.timestamp = timestamp;
+    }
 
     public int getId() {
         return id;
