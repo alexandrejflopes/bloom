@@ -188,7 +188,7 @@ pipeline {
                     sshCommand remote: remote, command: "docker rm esp50-webapp"
                     sshCommand remote: remote, command: "docker rmi 192.168.160.48:5000/esp50/webapp"
                     sshCommand remote: remote, command: "docker pull 192.168.160.48:5000/esp50/webapp"
-                    sshCommand remote: remote, command: "docker create -p 50030:50030 --name esp50-webapp 192.168.160.48:5000/esp50/webapp"
+                    sshCommand remote: remote, command: "docker create -p 50030:3000 --name esp50-webapp 192.168.160.48:5000/esp50/webapp"
                     sshCommand remote: remote, command: "docker start esp50-webapp"
 
                 }

@@ -53,4 +53,17 @@ public class ExternalApi{
         
     }
 
+    public List<Sensor> getAllLatestSensorsInfoPerType(String type) {
+
+        List<Sensor> sensors = null;
+        try {
+            String uRL = "http://"+IP+":50080/sensor/" + type + "/latest-readings";
+            Sensor[] sensorsArray = template.getForObject(uRL, Sensor[].class);
+            sensors = Arrays.asList(sensorsArray);
+        }
+        catch (Exception e) {}        
+        return sensors;
+        
+    }
+
 }

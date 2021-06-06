@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import ua.p50.sensorsApp.models.Sensor;
-import ua.p50.sensorsApp.services.SensorService;
+import ua.p50.sensorsApp.service.SensorService;
 
 @CrossOrigin 
 @RestController
@@ -37,6 +37,13 @@ public class SensorController {
     @GetMapping(value = "/sensor/all/latest-readings")
     public List<Sensor> allLatestSensorsReadings() {
         return service.getAllLatestSensors();
+    }
+
+    // http://localhost:50080/sensor/temperature/latest-readings
+    @CrossOrigin(origins="*")
+    @GetMapping(value = "/sensor/{type}/latest-readings")
+    public List<Sensor> allLatestSensorsReadingsPerType(@PathVariable("type") String type) {
+        return service.getAllLatestSensorsPerType(type);
     }
     
     

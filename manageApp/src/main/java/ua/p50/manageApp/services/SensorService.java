@@ -29,7 +29,13 @@ public class SensorService {
     public List<Sensor> getAllLatestSensors() {
         
         return restUtil.getAllLatestSensorsInfo();
+
+    }
+
+    public List<Sensor> getAllLatestSensorsPerType(String type) {
         
+        return restUtil.getAllLatestSensorsInfoPerType(type);
+          
     }
 
 }
