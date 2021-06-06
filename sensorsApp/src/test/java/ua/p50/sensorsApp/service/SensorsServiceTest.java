@@ -92,7 +92,7 @@ public class SensorsServiceTest {
     }
 
     @Test
-    public void whenInDatabase_thenAllResultShouldBeFound() {
+    public void whenInDatabase_thenAllResultForSensor0ShouldBeFoundAndTheFirstMustHaveBiggerTimestamp() {
         int id = 0;
         List<Sensor> found = service.getAllSensor(id);
         assertThat(found.get(0).getId()).isEqualTo(sensor0new.getId());
@@ -101,7 +101,7 @@ public class SensorsServiceTest {
     }
 
     @Test
-    public void whenInDatabase_thenLatestResultShouldBeFound(){
+    public void whenInDatabase_thenLatestResultForSensor0ShouldBeFound(){
         int id = 0;
         Sensor found = service.getLatestSensor(id);
         assertThat(found.getId()).isEqualTo(sensor0new.getId());
