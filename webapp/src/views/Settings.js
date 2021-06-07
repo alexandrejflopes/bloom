@@ -91,11 +91,11 @@ function Settings() {
                                             <Tab eventKey="humidade" title="Humidade">
                                                 <Col md={6}>
                                                     <Form.Group controlId="limiteMinimoHumidade">
-                                                        <Form.Label>Limite Mínimo</Form.Label>
+                                                        <Form.Label>Limite Mínimo (%)</Form.Label>
                                                         <Form.Control type="number" id="min_hum"  placeholder="Valor mínimo aceitável" value={minHum} onChange={e => setMinHum(e.target.value)} />
                                                     </Form.Group>
                                                     <Form.Group controlId="limiteMaximoHumidade">
-                                                        <Form.Label>Limite Máximo</Form.Label>
+                                                        <Form.Label>Limite Máximo (%)</Form.Label>
                                                         <Form.Control type="number" id="max_hum" placeholder="Valor máximo aceitável" value={maxHum} onChange={e => setMaxHum(e.target.value)}  />
                                                     </Form.Group>
                                                 </Col>
@@ -103,11 +103,11 @@ function Settings() {
                                             <Tab id="temperature_tab" eventKey="temperatura" title="Temperatura">
                                                 <Col md={6}>
                                                     <Form.Group controlId="limiteMinimoTemperatura">
-                                                        <Form.Label>Limite Mínimo</Form.Label>
+                                                        <Form.Label>Limite Mínimo (ºC)</Form.Label>
                                                         <Form.Control type="number" id="min_temp" placeholder="Valor mínimo aceitável" value={minTemp} onChange={e => setMinTemp(e.target.value)} />
                                                     </Form.Group>
                                                     <Form.Group controlId="limiteMaximoTemperatura">
-                                                        <Form.Label>Limite Máximo</Form.Label>
+                                                        <Form.Label>Limite Máximo (ºC)</Form.Label>
                                                         <Form.Control type="number" id="max_temp" placeholder="Valor máximo aceitável" value={maxTemp} onChange={e => setMaxTemp(e.target.value)}  />
                                                     </Form.Group>
                                                 </Col>
