@@ -63,7 +63,7 @@ public class DetectorServiceTests {
 		Alarm alarm_cap = alarm_captor.getValue();
 		assertThat(alarm_cap.getSensorId()).isEqualTo(0);
 		assertThat(alarm_cap.getSensorType()).isEqualTo("Temperature");
-		assertThat(alarm_cap.getValue()).isEqualTo("26");
+		assertThat(alarm_cap.getValue()).isEqualTo("26.0");
 		assertThat(alarm_cap.getAlarm()).isEqualTo("HIGH");
 	}
 	
@@ -91,7 +91,7 @@ public class DetectorServiceTests {
 		Alarm alarm_cap = alarm_captor.getValue();
 		assertThat(alarm_cap.getSensorId()).isEqualTo(0);
 		assertThat(alarm_cap.getSensorType()).isEqualTo("Temperature");
-		assertThat(alarm_cap.getValue()).isEqualTo("24");
+		assertThat(alarm_cap.getValue()).isEqualTo("24.0");
 		assertThat(alarm_cap.getAlarm()).isEqualTo("LOW");
 
 	}
@@ -115,7 +115,7 @@ public class DetectorServiceTests {
 		Alarm alarm_cap = alarm_captor.getValue();
 		assertThat(alarm_cap.getSensorId()).isEqualTo(1);
 		assertThat(alarm_cap.getSensorType()).isEqualTo("Temperature");
-		assertThat(alarm_cap.getValue()).isEqualTo("26");
+		assertThat(alarm_cap.getValue()).isEqualTo("26.0");
 		assertThat(alarm_cap.getAlarm()).isEqualTo("HIGH");
 
 	}
@@ -144,7 +144,7 @@ public class DetectorServiceTests {
 		Alarm alarm_cap = alarm_captor.getValue();
 		assertThat(alarm_cap.getSensorId()).isEqualTo(1);
 		assertThat(alarm_cap.getSensorType()).isEqualTo("Temperature");
-		assertThat(alarm_cap.getValue()).isEqualTo("24");
+		assertThat(alarm_cap.getValue()).isEqualTo("24.0");
 		assertThat(alarm_cap.getAlarm()).isEqualTo("LOW");
 		
 	}
@@ -169,7 +169,7 @@ public class DetectorServiceTests {
 		Alarm alarm_cap = alarm_captor.getValue();
 		assertThat(alarm_cap.getSensorId()).isEqualTo(2);
 		assertThat(alarm_cap.getSensorType()).isEqualTo("Humidity");
-		assertThat(alarm_cap.getValue()).isEqualTo("70");
+		assertThat(alarm_cap.getValue()).isEqualTo("70.0");
 		assertThat(alarm_cap.getAlarm()).isEqualTo("HIGH");
 	}
 	
@@ -197,7 +197,7 @@ public class DetectorServiceTests {
 		Alarm alarm_cap = alarm_captor.getValue();
 		assertThat(alarm_cap.getSensorId()).isEqualTo(2);
 		assertThat(alarm_cap.getSensorType()).isEqualTo("Humidity");
-		assertThat(alarm_cap.getValue()).isEqualTo("50");
+		assertThat(alarm_cap.getValue()).isEqualTo("50.0");
 		assertThat(alarm_cap.getAlarm()).isEqualTo("LOW");
 	}
 	
@@ -220,7 +220,7 @@ public class DetectorServiceTests {
 		Alarm alarm_cap = alarm_captor.getValue();
 		assertThat(alarm_cap.getSensorId()).isEqualTo(3);
 		assertThat(alarm_cap.getSensorType()).isEqualTo("Humidity");
-		assertThat(alarm_cap.getValue()).isEqualTo("70");
+		assertThat(alarm_cap.getValue()).isEqualTo("70.0");
 		assertThat(alarm_cap.getAlarm()).isEqualTo("HIGH");
 	}
 	
@@ -248,7 +248,7 @@ public class DetectorServiceTests {
 		Alarm alarm_cap = alarm_captor.getValue();
 		assertThat(alarm_cap.getSensorId()).isEqualTo(3);
 		assertThat(alarm_cap.getSensorType()).isEqualTo("Humidity");
-		assertThat(alarm_cap.getValue()).isEqualTo("50");
+		assertThat(alarm_cap.getValue()).isEqualTo("50.0");
 		assertThat(alarm_cap.getAlarm()).isEqualTo("LOW");
 	}
 	
@@ -271,7 +271,7 @@ public class DetectorServiceTests {
 		Alarm alarm_cap = alarm_captor.getValue();
 		assertThat(alarm_cap.getSensorId()).isEqualTo(4);
 		assertThat(alarm_cap.getSensorType()).isEqualTo("Humidity");
-		assertThat(alarm_cap.getValue()).isEqualTo("70");
+		assertThat(alarm_cap.getValue()).isEqualTo("70.0");
 		assertThat(alarm_cap.getAlarm()).isEqualTo("HIGH");
 	}
 	
@@ -299,7 +299,7 @@ public class DetectorServiceTests {
 		Alarm alarm_cap = alarm_captor.getValue();
 		assertThat(alarm_cap.getSensorId()).isEqualTo(4);
 		assertThat(alarm_cap.getSensorType()).isEqualTo("Humidity");
-		assertThat(alarm_cap.getValue()).isEqualTo("50");
+		assertThat(alarm_cap.getValue()).isEqualTo("50.0");
 		assertThat(alarm_cap.getAlarm()).isEqualTo("LOW");
 	}
 	
