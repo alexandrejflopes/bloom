@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import NVD3Chart from 'react-nvd3';
-import { API_URL } from '../variables/urls';
-
+import { limitArrayToFirstX, timestampToDate } from '../../scripts/functions';
+import { API_URL } from '../../variables/urls';
+var d3 = require("d3");
 
 function getDatum() {
   var sin = [],
@@ -43,65 +44,114 @@ function getDatum() {
 
 
 // formatar dados para o gráfico
-function formatTemperatureData(esquerda, direita){
+function formatTemperatureData(tempEsquerda, tempDireita){
+  let esquerda = [];
+  let direita = [];
 
+  // extrair os dados relevantes para o gráfico para cada sensor
+  for(let i=0; i < tempEsquerda.length; i++){
+    let leitura = tempEsquerda[i];
+
+    esquerda.push(
+      {
+        'x': timestampToDate(leitura.timestamp),
+        'y': leitura.value
+      }
+    )
+  }
+
+  for (let i = 0; i < tempDireita.length; i++) {
+    let leitura = tempDireita[i];
+
+    direita.push(
+      {
+        'x': timestampToDate(leitura.timestamp),
+        'y': leitura.value
+      }
+    )
+  }
+
+  return [
+    {
+      values: esquerda,
+      key: 'Temperatura Oeste',
+      color: '#A389D4'
+    },
+    {
+      values: direita,
+      key: 'Temperatura Este',
+      color: '#04a9f5'
+    },
+  ];
 }
 
 function TemperatureChart() {
 
   //const data = getDatum();
 
-  const [data, setData] = useState('');
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetchTemperatura();
+  });
 
 
   const fetchTemperatura = async () => {
-    const fetchTempEsquerda = await fetch(API_URL + '/sensor/0/readings/latest');
+    const fetchTempEsquerda = await fetch(API_URL + '/sensor/0/readings/all');
     console.log("fetched TemperaturaEsquerda");
-    const responseEsquerda = await fetchTempEsquerda.json();
-
-    const fetchTempDireita = await fetch(API_URL + '/sensor/0/readings/latest');
+    let responseEsquerda = await fetchTempEsquerda.json();
+    //console.log(responseEsquerda)
+    // limitar os resultados aos últimos 100
+    // TODO: isto deverá vir já limitado da API depois
+    responseEsquerda = limitArrayToFirstX(responseEsquerda,100);
+    //console.log("responseEsquerda filtered")
+    //console.log(responseEsquerda)
+    const fetchTempDireita = await fetch(API_URL + '/sensor/0/readings/all');
     console.log("fetched TemperaturaEsquerda");
-    const responseDireita = await fetchTempDireita.json();
+    let responseDireita = await fetchTempDireita.json();
+    responseDireita = limitArrayToFirstX(responseDireita, 100);
 
+    const data = formatTemperatureData(responseEsquerda, responseDireita);
 
-    const data = formatData(responseEsquerda, responseDireita);
+    console.log("data")
+    console.log(data)
 
     setData(data);
   }
 
-  const fetchTemperaturaDireita = async () => {
-    const fetchItem = await fetch(API_URL + '/sensor/0/readings/latest');
-    console.log("fetched TemperaturaEsquerda");
-    const response = await fetchItem.json();
-    const data = formatData(response);
 
-    setData(data);
-  }
 
 
   return (
-    <div>
-      {
-        React.createElement(NVD3Chart, {
-          xAxis: {
-            tickFormat: function (d) { return d; },
-            axisLabel: 'Di'
-          },
-          yAxis: {
-            axisLabel: 'Temperatura (ºC)',
-            tickFormat: function (d) { return parseFloat(d).toFixed(2); }
-          },
-          type: 'lineChart',
-          datum: data,
-          x: 'x',
-          y: 'y',
-          height: 300,
-          renderEnd: function () {
-            console.log('renderEnd');
-          }
-        })
-      }
-    </div>
+    <>
+    {
+      data.length!==0 ? 
+          <div>
+            {
+              React.createElement(NVD3Chart, {
+                xAxis: {
+                  tickFormat: function (d) { return d3.time.format('%H:%M:%S')(new Date(d)); },
+                  axisLabel: 'Hora'
+                },
+                yAxis: {
+                  axisLabel: 'Temperatura (ºC)',
+                  tickFormat: function (d) { return parseFloat(d).toFixed(2); }
+                },
+                type: 'lineChart',
+                datum: data,
+                x: 'x',
+                y: 'y',
+                height: 300,
+                renderEnd: function () {
+                  console.log('renderEnd');
+                }
+              })
+            }
+          </div>
+
+          : "LOADING"
+    }
+    </>
   )
 }
 
