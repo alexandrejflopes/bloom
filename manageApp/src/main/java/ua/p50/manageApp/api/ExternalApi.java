@@ -66,4 +66,14 @@ public class ExternalApi{
         
     }
 
+    public void publishNewLimits(String type, String min, String max) {
+
+        try {
+            String uRL = "http://localhost:50050/sensor-limits/" + type + "?min=" + min + "&max=" + max ;
+            template.getForObject(uRL, String.class);
+        }
+        catch (Exception e) {}        
+        
+    }
+
 }
