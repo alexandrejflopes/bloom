@@ -1,83 +1,47 @@
 package ua.p50.sensorsApp.kafka;
 
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.producer.Producer;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.serialization.StringDeserializer;
-import org.apache.kafka.common.serialization.StringSerializer;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
-import org.springframework.kafka.core.DefaultKafkaProducerFactory;
-import org.springframework.kafka.listener.ContainerProperties;
-import org.springframework.kafka.listener.KafkaMessageListenerContainer;
-import org.springframework.kafka.listener.MessageListener;
-import org.springframework.kafka.test.EmbeddedKafkaBroker;
-import org.springframework.kafka.test.context.EmbeddedKafka;
-import org.springframework.kafka.test.utils.ContainerTestUtils;
-import org.springframework.kafka.test.utils.KafkaTestUtils;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.test.annotation.DirtiesContext;
 
-@EmbeddedKafka
-@ExtendWith(SpringExtension.class)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class SensorsConsumerTest {
+import ua.p50.sensorsApp.models.Sensor;
+import ua.p50.sensorsApp.service.SensorService;
 
-    private static final String TOPIC = "esp50-sensors-temperature";
+@SpringBootTest
+@DirtiesContext
+@EmbeddedKafka(partitions = 1, brokerProperties = { "listeners=PLAINTEXT://localhost:9092", "port=9092" })
+class SensorsConsumerTest {
 
     @Autowired
-    private EmbeddedKafkaBroker embeddedKafkaBroker;
+    SensorsConsumer consumer;
 
-    BlockingQueue<ConsumerRecord<String, String>> records;
+    @Mock
+    private SensorService service;
 
-    KafkaMessageListenerContainer<String, String> container;
-
-    @BeforeAll
-    void setUp() {
-        Map<String, Object> configs = new HashMap<>(KafkaTestUtils.consumerProps("consumer", "false", embeddedKafkaBroker));
-        DefaultKafkaConsumerFactory<String, String> consumerFactory = new DefaultKafkaConsumerFactory<>(configs, new StringDeserializer(), new StringDeserializer());
-        ContainerProperties containerProperties = new ContainerProperties(TOPIC);
-        container = new KafkaMessageListenerContainer<>(consumerFactory, containerProperties);
-        records = new LinkedBlockingQueue<>();
-        container.setupMessageListener((MessageListener<String, String>) records::add);
-        container.start();
-        ContainerTestUtils.waitForAssignment(container, embeddedKafkaBroker.getPartitionsPerTopic());
-    }
-
-    @AfterAll
-    void tearDown() {
-        container.stop();
-    }
-
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
+    
     @Test
-    public void kafkaSetup_withTopic_ensureSendMessageIsReceived() throws Exception {
-        // Arrange
-        Map<String, Object> configs = new HashMap<>(KafkaTestUtils.producerProps(embeddedKafkaBroker));
-        Producer<String, String> producer = new DefaultKafkaProducerFactory<>(configs, new StringSerializer(), new StringSerializer()).createProducer();
+    public void givenEmbeddedKafkaBroker_whenSendingtoSimpleProducer_thenMessageReceived() 
+      throws Exception {
 
-        // Act
-        producer.send(new ProducerRecord<>(TOPIC, "my-aggregate-id", "{\"id\":\"0\"dataType\":\"Double\"sensorType\":\"Temperature\"unit\":\"Celsius\"unitAbreviation\":\"C\"value\":\"20.0\"timestamp\":\"0\"}"));
-        producer.flush();
+        String message = "{\"id\":\"0\"dataType\":\"Double\"sensorType\":\"Temperature\"unit\":\"Celsius\"unitAbreviation\":\"C\"value\":\"20.0\"timestamp\":\"0\"}";
 
-        // Assert
-        ConsumerRecord<String, String> singleRecord = records.poll(100, TimeUnit.MILLISECONDS);
-        assertThat(singleRecord).isNotNull();
-        assertThat(singleRecord.key()).isEqualTo("my-aggregate-id");
-        assertThat(singleRecord.value()).isEqualTo("{\"id\":\"0\"dataType\":\"Double\"sensorType\":\"Temperature\"unit\":\"Celsius\"unitAbreviation\":\"C\"value\":\"20.0\"timestamp\":\"0\"}");
+        kafkaTemplate.send("esp50-sensors-temperature", message);
+
+        consumer.getLatch().await(10000, TimeUnit.MILLISECONDS);
+
+        Sensor sensor = new Sensor(0, "Double", "Temperature", "Celsius", "C", 20.0, 0);
+        //verify(service, times(1)).addSensor(sensor);
     }
-
 }
-
 

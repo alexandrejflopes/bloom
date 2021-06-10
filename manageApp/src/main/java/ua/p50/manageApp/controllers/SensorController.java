@@ -1,5 +1,6 @@
 package ua.p50.manageApp.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,11 +31,11 @@ public class SensorController {
         return service.getLatestSensor(id);
     }
 
-    // http://localhost:50060/sensor/0/readings/all 
+    // http://localhost:50060/sensor/0/readings/all/10 
     @CrossOrigin(origins="*")
-    @GetMapping(value = "/sensor/{id}/readings/all")
-    public List<Sensor> allSensorReadings(@PathVariable("id") int id) {
-        return service.getAllSensor(id);
+    @GetMapping(value = "/sensor/{id}/readings/all/{count}")
+    public List<Sensor> allSensorReadings(@PathVariable("id") int id, @PathVariable("count") int count) {
+        return new ArrayList<Sensor>(service.getAllSensor(id).subList(0, count));
     }
 
     // http://localhost:50060/sensor/all/latest-readings
