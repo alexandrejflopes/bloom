@@ -42,6 +42,36 @@
 			<artifactId>spring-kafka-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+    		<groupId>io.cucumber</groupId>
+    		<artifactId>cucumber-java</artifactId>
+    		<version>6.10.4</version>
+    		<scope>test</scope>
+		</dependency>
+		<dependency>
+    		<groupId>io.cucumber</groupId>
+    		<artifactId>cucumber-junit</artifactId>
+    		<version>6.10.4</version>
+    		<scope>test</scope>
+		</dependency>
+		<dependency>
+    		<groupId>io.cucumber</groupId>
+    		<artifactId>cucumber-spring</artifactId>
+    		<version>6.10.4</version>
+    		<scope>test</scope>
+		</dependency>
+		<dependency>
+    		<groupId>junit</groupId>
+    		<artifactId>junit</artifactId>
+    		<scope>test</scope>
+		</dependency>
+		<dependency>
+    		<groupId>org.junit.vintage</groupId>
+    		<artifactId>junit-vintage-engine</artifactId>
+    		<scope>test</scope>
+		</dependency>
+		
+		
 	</dependencies>
 
 	<distributionManagement>
@@ -58,6 +88,15 @@
 	</distributionManagement>
 
 	<build>
+	    <pluginManagement>
+      		<plugins>
+        		<plugin>
+          			<groupId>org.apache.maven.plugins</groupId>
+          			<artifactId>maven-surefire-plugin</artifactId>
+          			<version>3.0.0-M5</version>
+        		</plugin>
+      		</plugins>
+    	</pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -79,6 +118,11 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+			<plugin>
+          		<groupId>org.apache.maven.plugins</groupId>
+          		<artifactId>maven-surefire-plugin</artifactId>
+        	</plugin>
+			
 		</plugins>
 	</build>
 
