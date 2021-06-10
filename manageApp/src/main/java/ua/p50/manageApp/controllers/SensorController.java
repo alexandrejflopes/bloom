@@ -1,5 +1,6 @@
 package ua.p50.manageApp.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,8 +24,6 @@ public class SensorController {
     @Autowired
     private SensorService service;
 
-    private HashMap<String, String> limits = new HashMap<>();
-
     // http://localhost:50060/sensor/0/readings/latest   
     @CrossOrigin(origins="*")
     @GetMapping(value = "/sensor/{id}/readings/latest")
@@ -32,11 +31,11 @@ public class SensorController {
         return service.getLatestSensor(id);
     }
 
-    // http://localhost:50060/sensor/0/readings/all 
+    // http://localhost:50060/sensor/0/readings/all/10 
     @CrossOrigin(origins="*")
-    @GetMapping(value = "/sensor/{id}/readings/all")
-    public List<Sensor> allSensorReadings(@PathVariable("id") int id) {
-        return service.getAllSensor(id);
+    @GetMapping(value = "/sensor/{id}/readings/all/{count}")
+    public List<Sensor> allSensorReadings(@PathVariable("id") int id, @PathVariable("count") int count) {
+        return new ArrayList<Sensor>(service.getAllSensor(id).subList(0, count));
     }
 
     // http://localhost:50060/sensor/all/latest-readings
@@ -66,34 +65,34 @@ public class SensorController {
         return info;
     }
 
-    // http://localhost:50060/sensor-limits/temperature?id=0&min=30&max=40
-    @GetMapping("/sensor-limits/temperature") // com o Post não estava a dar, pelo menos no browser
+    // http://localhost:50060/sensor-limits/temperature/new?min=30&max=40
+    @GetMapping("/sensor-limits/temperature/new") // com o Post não estava a dar, pelo menos no browser
     @ResponseBody
-    public String newLimitTemperature(@RequestParam String id, @RequestParam String min, @RequestParam String max) { 
-        System.out.println("Id: "+id+"Min: "+min+"Max: "+max);
+    public String newLimitTemperature(@RequestParam String min, @RequestParam String max) { 
+        service.newLimits("temperature", min, max);
         return "New limits for temperature defined";
     }  
     
-    // http://localhost:50060/sensor-limits/humidity?id=3&min=30&max=40
-    @GetMapping(value="/sensor-limits/humidity") // com o Post não estava a dar
+    // http://localhost:50060/sensor-limits/humidity/new?min=30&max=40
+    @GetMapping(value="/sensor-limits/humidity/new") // com o Post não estava a dar
     @ResponseBody
-    public String newLimitHumidity(@RequestParam String id, @RequestParam String min, @RequestParam String max) { 
-        System.out.println("Id: "+id+" Min: "+min+"Max: "+max);
+    public String newLimitHumidity(@RequestParam String min, @RequestParam String max) { 
+        service.newLimits("humidity", min, max);
         return "New limits for humidity defined";
     }  
 
-    // http://localhost:50060/sensor-limits/temperature/0
+    // http://localhost:50060/sensor-limits/temperature
     @CrossOrigin(origins="*")
-    @GetMapping(value = "/sensor-limits/temperature/{id}")
-    public String limitTemperature(@PathVariable("id") int id) {
-        return "Id: "+id+" Min: 30 Max: 40";
+    @GetMapping(value = "/sensor-limits/temperature")
+    public Map<String,String> limitTemperature() {
+        return service.getLimits("temperature");
     }
 
-    // http://localhost:50060/sensor-limits/humidity/3
+    // http://localhost:50060/sensor-limits/humidity
     @CrossOrigin(origins="*")
-    @GetMapping(value = "/sensor-limits/humidity/{id}")
-    public String limitHumidity(@PathVariable("id") int id) {
-        return "Id: "+id+" Min: 30 Max: 40";
+    @GetMapping(value = "/sensor-limits/humidity")
+    public Map<String,String> limitHumidity() {
+        return service.getLimits("humidity");
     }
 
 }

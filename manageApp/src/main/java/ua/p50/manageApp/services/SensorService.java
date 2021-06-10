@@ -1,6 +1,8 @@
 package ua.p50.manageApp.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,18 @@ public class SensorService {
     
     @Autowired
     private ExternalApi restUtil;
+
+    private HashMap<String, String> limitsTemperature;
+    private HashMap<String, String> limitsHumidity;
+
+    SensorService() {
+        this.limitsTemperature = new HashMap<>();
+        this.limitsHumidity = new HashMap<>();
+        this.limitsTemperature.put("min","24");
+        this.limitsTemperature.put("max","26");
+        this.limitsHumidity.put("min","50");
+        this.limitsHumidity.put("max","70");
+    }
 
     public Sensor getLatestSensor(int sensorId) {
 
@@ -36,6 +50,17 @@ public class SensorService {
         
         return restUtil.getAllLatestSensorsInfoPerType(type);
           
+    }
+
+    public void newLimits(String type, String min, String max) {
+        if (type.equals("temperature")) { limitsTemperature.put("min", min); limitsTemperature.put("max", max); } 
+        else { limitsHumidity.put("min", min); limitsHumidity.put("max", max); } 
+        restUtil.publishNewLimits(type, min, max);
+    }
+
+    public Map<String, String> getLimits(String type) {
+        if (type.equals("temperature")) return limitsTemperature;
+        else return limitsHumidity;
     }
 
 }
