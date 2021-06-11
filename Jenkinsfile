@@ -77,19 +77,21 @@ pipeline {
             }
         }
         
+        /*
         stage ('Cucumber Reports') {
 
             steps {
                 dir('webapp'){  
                     cucumber buildStatus: "UNSTABLE",
                         fileIncludePattern: "**/report.json",
-                        jsonReportDirectory: 'target'
+                        /* jsonReportDirectory: 'target' /*
                 }
 
             }
 
         }
-
+        */
+        
 
         stage ('Deploy') {
             steps{
