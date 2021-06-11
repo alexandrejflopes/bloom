@@ -77,20 +77,20 @@ pipeline {
             }
         }
         
-        /*
-        stage ('Cucumber Reports') {
+   
+        //stage ('Cucumber Reports') {
 
-            steps {
-                dir('webapp'){  
-                    cucumber buildStatus: "UNSTABLE",
-                        fileIncludePattern: "**/report.json",
-                        /* jsonReportDirectory: 'target' */
-                }
+          //  steps {
+            //    dir('webapp'){  
+              //      cucumber buildStatus: "UNSTABLE",
+                        //fileIncludePattern: "**/report.json",
+                        //jsonReportDirectory: 'target' 
+                //}
 
-            }
+            //}
 
-        }
-        */
+        //}
+        
         
 
         stage ('Deploy') {
