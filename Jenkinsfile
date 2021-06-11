@@ -84,7 +84,7 @@ pipeline {
                 dir('webapp'){  
                     cucumber buildStatus: "UNSTABLE",
                         fileIncludePattern: "**/report.json",
-                        /* jsonReportDirectory: 'target' /*
+                        /* jsonReportDirectory: 'target' */
                 }
 
             }
