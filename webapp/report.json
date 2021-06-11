@@ -1,0 +1,74 @@
+[
+  {
+    "keyword": "Feature",
+    "name": "Authentication",
+    "line": 1,
+    "id": "authentication",
+    "tags": [],
+    "uri": "features/auth_feature/auth-feature.feature",
+    "elements": [
+      {
+        "id": "authentication;bloom-login.",
+        "keyword": "Scenario",
+        "line": 2,
+        "name": "Bloom Login.",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 3,
+            "name": "I am on the Login page",
+            "match": {
+              "location": "features/auth_feature/auth-feature-steps.js:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5217000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 4,
+            "name": "I insert my e-mail \"antonio@ua.pt\"",
+            "match": {
+              "location": "features/auth_feature/auth-feature-steps.js:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1325000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 5,
+            "name": "I hit entrar",
+            "match": {
+              "location": "features/auth_feature/auth-feature-steps.js:19"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2481000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 6,
+            "name": "the page title is \"Estado da estufa de antonio@ua.pt\"",
+            "match": {
+              "location": "features/auth_feature/auth-feature-steps.js:24"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 19000000
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
