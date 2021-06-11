@@ -26,3 +26,10 @@ export function timestampToHoursMinutesSeconds(timestamp) {
   return horas + ":" + minutos + ":" + segundos;
 
 }
+
+
+
+export function sleep(ms) {
+  console.log("Sleeping");
+  return new Promise(resolve => setTimeout(resolve, ms));
+}

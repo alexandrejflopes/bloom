@@ -4,53 +4,18 @@ import { timestampToDate } from '../../scripts/functions';
 import { API_URL } from '../../variables/urls';
 var d3 = require("d3");
 
-function getDatum() {
-  var sin = [],
-    sin2 = [],
-    cos = [];
-  for (var i = 0; i < 100; i++) {
-    sin.push({
-      'x': i,
-      'y': Math.sin(i / 10)
-    });
-    sin2.push({
-      'x': i,
-      'y': Math.sin(i / 10) * 0.25 + 0.5
-    });
-    cos.push({
-      'x': i,
-      'y': .5 * Math.cos(i / 10)
-    });
-  }
-  return [
-    {
-      values: sin,
-      key: 'Sine Wave',
-      color: '#A389D4'
-    },
-    {
-      values: cos,
-      key: 'Cosine Wave',
-      color: '#04a9f5'
-    },
-    {
-      values: sin2,
-      key: 'Another sine wave',
-      color: '#1de9b6',
-      area: true
-    }
-  ];
-}
+
 
 
 // formatar dados para o gráfico
-function formatTemperatureData(tempEsquerda, tempDireita){
+function formatHumidityData(humidadeEsquerda, humidadeCentro, humidadeDireita) {
   let esquerda = [];
+  let centro = [];
   let direita = [];
 
   // extrair os dados relevantes para o gráfico para cada sensor
-  for(let i=0; i < tempEsquerda.length; i++){
-    let leitura = tempEsquerda[i];
+  for (let i = 0; i < humidadeEsquerda.length; i++) {
+    let leitura = humidadeEsquerda[i];
 
     esquerda.push(
       {
@@ -60,8 +25,19 @@ function formatTemperatureData(tempEsquerda, tempDireita){
     )
   }
 
-  for (let i = 0; i < tempDireita.length; i++) {
-    let leitura = tempDireita[i];
+  for (let i = 0; i < humidadeCentro.length; i++) {
+    let leitura = humidadeCentro[i];
+
+    centro.push(
+      {
+        'x': timestampToDate(leitura.timestamp),
+        'y': leitura.value
+      }
+    )
+  }
+
+  for (let i = 0; i < humidadeDireita.length; i++) {
+    let leitura = humidadeDireita[i];
 
     direita.push(
       {
@@ -74,18 +50,23 @@ function formatTemperatureData(tempEsquerda, tempDireita){
   return [
     {
       values: esquerda,
-      key: 'Temperatura Oeste',
+      key: 'Humidade Oeste',
       color: '#A389D4'
     },
     {
-      values: direita,
-      key: 'Temperatura Este',
+      values: centro,
+      key: 'Humidade Centro',
       color: '#04a9f5'
+    },
+    {
+      values: direita,
+      key: 'Humidade Este',
+      color: '#1de9b6'
     },
   ];
 }
 
-function TemperatureChart() {
+function HumidityChart() {
 
   //const data = getDatum();
 
@@ -95,31 +76,29 @@ function TemperatureChart() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetchTemperatura();
+    fetchHumidade();
   }, []);
 
-
   useInterval(() => {
-    fetchTemperatura();
+    fetchHumidade();
   }, SLEEP_TIME);
 
 
-  const fetchTemperatura = async () => {
+  const fetchHumidade = async () => {
     try{
-      const fetchTempEsquerda = await fetch(API_URL + '/sensor/0/readings/all/' + MAX_DATA_ELEMENTS/*, { timeout: 10000 }*/);
-      console.log("fetched TemperaturaEsquerda");
-      let responseEsquerda = await fetchTempEsquerda.json();
-      //console.log(responseEsquerda)
-      // TODO: isto deverá vir já limitado da API depois
-      //responseEsquerda = limitArrayToFirstX(responseEsquerda,100);
-      //console.log("responseEsquerda filtered")
-      //console.log(responseEsquerda)
-      const fetchTempDireita = await fetch(API_URL + '/sensor/1/readings/all/' + MAX_DATA_ELEMENTS/*, { timeout: 10000 }*/);
-      console.log("fetched TemperaturaEsquerda");
-      let responseDireita = await fetchTempDireita.json();
-      //responseDireita = limitArrayToFirstX(responseDireita, 100);
+      const fetchHumidadeEsquerda = await fetch(API_URL + '/sensor/2/readings/all/' + MAX_DATA_ELEMENTS);
+      console.log("fetched HumidadeEsquerda");
+      const responseEsquerda = await fetchHumidadeEsquerda.json();
 
-      const data = formatTemperatureData(responseEsquerda, responseDireita);
+      const fetchHumidadeCentro = await fetch(API_URL + '/sensor/3/readings/all/' + MAX_DATA_ELEMENTS);
+      console.log("fetched HumidadeCentro");
+      const responseCentro = await fetchHumidadeCentro.json();
+
+      const fetchHumidadeDireita = await fetch(API_URL + '/sensor/4/readings/all/' + MAX_DATA_ELEMENTS);
+      console.log("fetched HumidadeDireita");
+      const responseDireita = await fetchHumidadeDireita.json();
+
+      const data = formatHumidityData(responseEsquerda, responseCentro, responseDireita);
 
       console.log("data")
       console.log(data)
@@ -138,8 +117,8 @@ function TemperatureChart() {
 
   return (
     <>
-    {
-      data.length!==0 ? 
+      {
+        data.length !== 0 ?
           <div>
             {
               React.createElement(NVD3Chart, {
@@ -148,7 +127,7 @@ function TemperatureChart() {
                   axisLabel: 'Hora'
                 },
                 yAxis: {
-                  axisLabel: 'Temperatura (ºC)',
+                  axisLabel: 'Humidade (%)',
                   tickFormat: function (d) { return parseFloat(d).toFixed(2); }
                 },
                 type: 'lineChart',
@@ -164,11 +143,10 @@ function TemperatureChart() {
           </div>
 
           : "LOADING..."
-    }
+      }
     </>
   )
 }
-
 
 function useInterval(callback, delay) {
   const savedCallback = useRef();
@@ -190,4 +168,4 @@ function useInterval(callback, delay) {
   }, [delay]);
 }
 
-export default TemperatureChart;
+export default HumidityChart;
