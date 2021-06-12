@@ -25,7 +25,7 @@ function Settings() {
     useEffect(() => {
         fetchLimitesTemp();
         fetchLimitesHum();
-      });
+      }, []); // array vazio para só fazer isto ao carregar a página
 
     const fetchLimitesTemp = async () => {
         const fetchItem = await fetch(API_URL + '/sensor-limits/temperature');
@@ -43,15 +43,28 @@ function Settings() {
 
     //em spring está feito com get mas acho q ficava melhor com post
     const setLimitesTemp = async () => {
-        const fetchItem = await fetch(API_URL + '/sensor-limits/temperature/new?min='+newMinTemp+'&max='+newMaxTemp);
-        const item = await fetchItem.json();
-        console.log(item);
+        try{
+          await fetch(API_URL + '/sensor-limits/temperature/new?min=' + newMinTemp + '&max=' + newMaxTemp);
+          setMinTemp(newMinTemp);
+          setMaxTemp(newMaxTemp);
+        }
+        catch(error){
+          console.log(error);
+        }
     };
 
     const setLimitesHum = async () => {
-        const fetchItem = await fetch(API_URL + '/sensor-limits/humidity/new?min='+newMinHum+'&max='+newMaxHum);
-        const item = await fetchItem.json();
-        console.log(item);
+        try{
+          await fetch(API_URL + '/sensor-limits/humidity/new?min=' + newMinHum + '&max=' + newMaxHum);
+          //const item = await fetchItem.json(); // a resposta não é JSON
+          //console.log(item);
+          // update UI
+          setMinHum(newMinHum);
+          setMaxHum(newMaxHum);
+        }
+        catch(error){
+          console.log(error);
+        }
     };
     
 
