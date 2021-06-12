@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,7 +34,9 @@ public class SensorController {
     @CrossOrigin(origins="*")
     @GetMapping(value = "/sensor/{id}/readings/all/{count}")
     public List<Sensor> allSensorReadings(@PathVariable("id") int id, @PathVariable("count") int count) {
-        return new ArrayList<Sensor>(service.getAllSensor(id).subList(0, count));
+        List<Sensor> all = service.getAllSensor(id);
+        if (count<=all.size()) return new ArrayList<Sensor>(all.subList(0, count));
+        else return all;
     }
 
     // http://localhost:50060/sensor/all/latest-readings
