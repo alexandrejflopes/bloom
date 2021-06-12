@@ -51,7 +51,7 @@ function CO2Chart() {
 
   //const data = getDatum();
 
-  const MAX_DATA_ELEMENTS = 5; // TODO: change
+  const MAX_DATA_ELEMENTS = 50; 
   const SLEEP_TIME = 10000;
 
   const [data, setData] = useState([]);

@@ -89,7 +89,7 @@ function TemperatureChart() {
 
   //const data = getDatum();
 
-  const MAX_DATA_ELEMENTS = 5; // TODO: change
+  const MAX_DATA_ELEMENTS = 50; 
   const SLEEP_TIME = 10000;
 
   const [data, setData] = useState([]);
@@ -115,7 +115,7 @@ function TemperatureChart() {
       //console.log("responseEsquerda filtered")
       //console.log(responseEsquerda)
       const fetchTempDireita = await fetch(API_URL + '/sensor/1/readings/all/' + MAX_DATA_ELEMENTS/*, { timeout: 10000 }*/);
-      console.log("fetched TemperaturaEsquerda");
+      console.log("fetched TemperaturaDireita");
       let responseDireita = await fetchTempDireita.json();
       //responseDireita = limitArrayToFirstX(responseDireita, 100);
 
