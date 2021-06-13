@@ -25,7 +25,7 @@ function Historic() {
         <Col sm={12}>
           <Card>
             <Card.Header>
-              <Card.Title as="h5">CO2</Card.Title>
+              <Card.Title as="h5">Humidade</Card.Title>
             </Card.Header>
             <Card.Body className="text-center">
               <HumidityChart />
@@ -35,7 +35,7 @@ function Historic() {
         <Col sm={12}>
           <Card>
             <Card.Header>
-              <Card.Title as="h5">Humidade</Card.Title>
+              <Card.Title as="h5">Dióxido de Carbono (CO<sub>2</sub>)</Card.Title>
             </Card.Header>
             <Card.Body className="text-center">
               <CO2Chart />

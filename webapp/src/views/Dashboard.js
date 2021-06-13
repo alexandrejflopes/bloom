@@ -169,7 +169,7 @@ function Dashboard (){
           <Card>
             <Card.Header>
               <Card.Title as="h5" className="titulo_estufa" id="titulo_estufa">Estado da estufa de {email}</Card.Title>
-              <span className="d-block m-t-5">Humidade, temperatura e CO2</span>
+              <span className="d-block m-t-5">Humidade, temperatura e CO<sub>2</sub></span>
             </Card.Header>
             <Card.Body>
               {/*<div style={{ backgroundImage: `url(${fundoEstufa})`, backgroundSize: "cover", backgroundRepeat: "no-repeat", height: "800px", width: "inherit" }}>*/}
