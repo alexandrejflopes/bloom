@@ -18,7 +18,7 @@ import static ua.p50.sensorsApp.utils.Utils.IP;
 @Service
 public class SensorService {
 
-    InfluxDB influxDB = InfluxDBFactory.connect("http://"+IP+":8086", "user", "~");
+    InfluxDB influxDB = InfluxDBFactory.connect(IP+":8086", "user", "~");
 
     InfluxDBResultMapper resultMapper = new InfluxDBResultMapper();
 
