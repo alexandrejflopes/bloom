@@ -20,7 +20,7 @@ import ua.p50.sensorsApp.models.Sensor;
 
 @SpringBootTest
 @DirtiesContext
-@EmbeddedKafka(partitions = 1, brokerProperties = { "listeners=PLAINTEXT://localhost:9092", "port=9092" }, topics = { "esp50-sensors-temperature",  "esp50-sensors-humidity", "esp50-sensors-co2"})
+@EmbeddedKafka(partitions = 1, brokerProperties = { "listeners=PLAINTEXT://localhost:9092", "port=9092" })
 class SensorsConsumerTest {
 
   @Autowired
