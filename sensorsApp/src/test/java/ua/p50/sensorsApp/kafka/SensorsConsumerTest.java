@@ -20,7 +20,7 @@ import ua.p50.sensorsApp.models.Sensor;
 
 @SpringBootTest
 @DirtiesContext
-@EmbeddedKafka(partitions = 1, brokerProperties = { "listeners=PLAINTEXT://192.168.160.18:9092", "port=9092" })
+@EmbeddedKafka(partitions = 1, brokerProperties = { "listeners=PLAINTEXT://localhost:50090", "port=50090" })
 class SensorsConsumerTest {
 
   @Autowired
