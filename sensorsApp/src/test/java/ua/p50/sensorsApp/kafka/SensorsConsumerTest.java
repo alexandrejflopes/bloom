@@ -18,6 +18,8 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import ua.p50.sensorsApp.models.Sensor;
 
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+
 @SpringBootTest
 @DirtiesContext
 @EmbeddedKafka(partitions = 1, brokerProperties = { "listeners=PLAINTEXT://localhost:9092", "port=9092" })
@@ -25,6 +27,9 @@ class SensorsConsumerTest {
 
   @Autowired
   private KafkaTemplate<String, String> kafkaTemplate;
+  
+  @Autowired
+  private KafkaConsumer consumer;
 
   private InfluxDB influxDB;
 
