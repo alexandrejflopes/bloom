@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { Button, Card, Col, Form, Row, Tab, Tabs } from 'react-bootstrap';
+import NotificationAlert from "react-notification-alert";
+import SockJsClient from 'react-stomp';
 import "../assets/css/settings.css";
 import Aux from "../hoc/_Aux";
-import { API_URL } from '../variables/urls';
+import { API_URL, SOCKET_URL } from '../variables/urls';
 
 
 
@@ -22,10 +24,57 @@ function Settings() {
     const[humErro,setHumErro] = React.useState(false);
     const[vazioErro,setVazioErro] = React.useState(false);
 
+
     useEffect(() => {
         fetchLimitesTemp();
         fetchLimitesHum();
+        // TODO: just to test
+        setInterval(function () { showAlarm("Alarme!"); /*console.log("Toast!");*/ }, 1000);
       }, []); // array vazio para só fazer isto ao carregar a página
+
+  const notificationAlertRef = React.useRef(null);
+  const showAlarm = (message, place = "tr", type = "danger") => {
+
+    /**
+     * place:
+     *  - tl
+     *  - tc
+     *  - tr
+     *  - bl
+     *  - bc
+     *  - br
+     * colors:
+     *  - primary
+     *  - success
+     *  - danger
+     *  - warning
+     *  - info
+     */
+
+    let options = {
+      place: place,
+      message: (
+        <div>
+          <div>
+            {message}
+          </div>
+        </div>
+      ),
+      type: type,
+      //icon: "tim-icons icon-bell-55",
+      autoDismiss: 5,
+    };
+    notificationAlertRef.current.notificationAlert(options);
+  };
+
+  let onConnected = () => {
+    console.log("Notifications Socket connected!!")
+  }
+
+  let onMessageReceived = (msg) => {
+    console.log('New Notification Received!!', msg);
+    showAlarm(msg);
+  }
 
     const fetchLimitesTemp = async () => {
         const fetchItem = await fetch(API_URL + '/sensor-limits/temperature');
@@ -147,6 +196,17 @@ function Settings() {
 
     return (
         <Aux>
+          <div className="react-notification-alert-container">
+            <NotificationAlert ref={notificationAlertRef} />
+          </div>
+        <SockJsClient
+          url={SOCKET_URL}
+          topics={['/topic/alarm']}
+          onConnect={onConnected}
+          onDisconnect={console.log("Notifications Socket disconnected!")}
+          onMessage={msg => onMessageReceived(msg)}
+          debug={false}
+        />
             <Row>
                 <Col>
                     <Card>
