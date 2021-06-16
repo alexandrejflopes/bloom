@@ -29,7 +29,7 @@ function Settings() {
         fetchLimitesTemp();
         fetchLimitesHum();
         // TODO: just to test
-        setInterval(function () { showAlarm("Alarme!"); /*console.log("Toast!");*/ }, 1000);
+        //setInterval(function () { showAlarm("Alarme!"); /*console.log("Toast!");*/ }, 1000);
       }, []); // array vazio para só fazer isto ao carregar a página
 
   const notificationAlertRef = React.useRef(null);
@@ -68,11 +68,11 @@ function Settings() {
   };
 
   let onConnected = () => {
-    console.log("Notifications Socket connected!!")
+    console.log("Alarms Socket connected!!")
   }
 
   let onMessageReceived = (msg) => {
-    console.log('New Notification Received!!', msg);
+    console.log('New Message Received:', msg);
     showAlarm(msg);
   }
 
@@ -203,7 +203,7 @@ function Settings() {
           url={SOCKET_URL}
           topics={['/topic/alarm']}
           onConnect={onConnected}
-          onDisconnect={console.log("Notifications Socket disconnected!")}
+          onDisconnect={console.log("Alarms Socket disconnected!")}
           onMessage={msg => onMessageReceived(msg)}
           debug={false}
         />
