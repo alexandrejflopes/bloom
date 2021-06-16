@@ -54,7 +54,7 @@ class SensorsConsumerTest {
       Mockito.verify(service, times(1)).addSensor(sensor);
   }
   **/
-
+/*
   @Test
   public void givenEmbeddedKafkaBroker_whenExistsTemperatureMessageInTopic_thenMessageReceivedByConsumer_AndStoredInDatabase() 
     throws Exception {
@@ -111,4 +111,5 @@ class SensorsConsumerTest {
       assertThat(storedSensor.getId()).isEqualTo(12);
       assertThat(storedSensor.getValue()).isEqualTo(3000.0);
   }
+*/
 }
