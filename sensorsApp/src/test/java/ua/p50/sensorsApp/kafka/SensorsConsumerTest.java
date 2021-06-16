@@ -25,6 +25,9 @@ class SensorsConsumerTest {
 
   @Autowired
   private KafkaTemplate<String, String> kafkaTemplate;
+  
+  @Autowired
+  private SensorsConsumer consumer;
 
   private InfluxDB influxDB;
 
