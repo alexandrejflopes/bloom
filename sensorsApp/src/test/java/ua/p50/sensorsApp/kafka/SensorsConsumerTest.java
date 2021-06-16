@@ -60,7 +60,7 @@ class SensorsConsumerTest {
 
       kafkaTemplate.send("esp50-sensors-temperature", message);
 
-      Thread.sleep(3000);
+      Thread.sleep(10000);
 
       QueryResult queryResult = influxDB.query(new Query("SELECT * FROM sensor WHERE id=10 AND value=3000.0", "esp50sensors"));
       List<Sensor> sensors = resultMapper.toPOJO(queryResult, Sensor.class);
@@ -79,7 +79,7 @@ class SensorsConsumerTest {
 
       kafkaTemplate.send("esp50-sensors-humidity", message);
 
-      Thread.sleep(3000);
+      Thread.sleep(10000);
 
       QueryResult queryResult = influxDB.query(new Query("SELECT * FROM sensor WHERE id=11 AND value=3000.0", "esp50sensors"));
       List<Sensor> sensors = resultMapper.toPOJO(queryResult, Sensor.class);
@@ -98,7 +98,7 @@ class SensorsConsumerTest {
 
       kafkaTemplate.send("esp50-sensors-co2", message);
 
-      Thread.sleep(3000);
+      Thread.sleep(10000);
 
       QueryResult queryResult = influxDB.query(new Query("SELECT * FROM sensor WHERE id=12 AND value=3000.0", "esp50sensors"));
       List<Sensor> sensors = resultMapper.toPOJO(queryResult, Sensor.class);
