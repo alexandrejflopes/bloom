@@ -35,6 +35,7 @@ function Settings() {
         //setInterval(function () { showAlarm("Alarme!"); /*console.log("Toast!");*/ }, 1000);
       }, []); // array vazio para só fazer isto ao carregar a página
 
+      // alarms
   const notificationAlertRef = React.useRef(null);
   const showAlarm = (message, place = "tr", type = "danger") => {
 

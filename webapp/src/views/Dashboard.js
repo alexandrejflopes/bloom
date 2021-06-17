@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
+import NotificationAlert from "react-notification-alert";
+import SockJsClient from 'react-stomp';
 import "../assets/css/estufa.css";
 // IMAGENS
 import iconeCO2 from '../assets/images/estufa/co2.svg';
@@ -10,8 +12,7 @@ import tabuleiroImg from '../assets/images/estufa/tabuleiro_branco.svg';
 import iconeTemperatura from '../assets/images/estufa/temperatura.svg';
 import Aux from "../hoc/_Aux";
 import { co2DireitaId, co2EsquerdaId, temperaturaDireitaId, temperaturaEsquerdaId } from '../variables/sensorsIds';
-import { API_URL } from '../variables/urls';
-
+import { API_URL, SOCKET_URL } from '../variables/urls';
 
 
 function Dashboard (){
@@ -41,6 +42,51 @@ function Dashboard (){
   useInterval(() => {
     fetchLatestReadings();
   }, SLEEP_TIME);
+
+  // alarms
+  const notificationAlertRef = React.useRef(null);
+  const showAlarm = (message, place = "tr", type = "danger") => {
+
+    /**
+     * place:
+     *  - tl
+     *  - tc
+     *  - tr
+     *  - bl
+     *  - bc
+     *  - br
+     * colors:
+     *  - primary
+     *  - success
+     *  - danger
+     *  - warning
+     *  - info
+     */
+
+    let options = {
+      place: place,
+      message: (
+        <div>
+          <div>
+            {message}
+          </div>
+        </div>
+      ),
+      type: type,
+      //icon: "tim-icons icon-bell-55",
+      autoDismiss: 5,
+    };
+    notificationAlertRef.current.notificationAlert(options);
+  };
+
+  let onConnected = () => {
+    console.log("Alarms Socket connected!!")
+  }
+
+  let onMessageReceived = (msg) => {
+    console.log('New Message Received:', msg);
+    showAlarm(msg);
+  }
 
 
   const fetchLatestReadings = async () => {
@@ -164,6 +210,17 @@ function Dashboard (){
   return (
       
     <Aux>
+      <div className="react-notification-alert-container">
+        <NotificationAlert ref={notificationAlertRef} />
+      </div>
+      <SockJsClient
+        url={SOCKET_URL}
+        topics={['/topic/alarm']}
+        onConnect={onConnected}
+        onDisconnect={console.log("Alarms Socket disconnected!")}
+        onMessage={msg => onMessageReceived(msg)}
+        debug={false}
+      />
       <Row>
         <Col>
           <Card>

@@ -16,13 +16,13 @@ function formatHumidityData(humidadeEsquerda, humidadeCentro, humidadeDireita, m
   let limiteInferior = [];
 
   const lengths = [humidadeEsquerda.length, humidadeCentro.length, humidadeDireita.length];
-  const maxLength = Math.max(...lengths)
+  const maxLength = Math.max(...lengths); // maior numero de leituras
   let sideToUse = humidadeEsquerda.length === maxLength ? "esquerda" : (
     humidadeCentro.length === maxLength ? "centro" : "direita"
   );
 
 
-  console.log("maxLength -> ", maxLength)
+  //console.log("maxLength hum -> ", maxLength)
 
   // linhas para os limites superior e inferior
   /*limiteInferior = Array(maxLength).fill(
@@ -145,10 +145,12 @@ function formatHumidityData(humidadeEsquerda, humidadeCentro, humidadeDireita, m
     // limites
     {
       values: limiteInferior,
-      color: '#FF8C00'
+      key: 'Limite Inferior',
+      color: '#DC143C'
     },
     {
       values: limiteSuperior,
+      key: 'Limite Superior',
       color: '#DC143C'
     },
   ];
