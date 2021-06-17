@@ -25,14 +25,15 @@ public class DetectorService {
 
     private boolean airConditioningOnSensor0 = false;
     private boolean airConditioningOnSensor1 = false;
+
     private boolean wateringSensor2 = false;
     private boolean wateringSensor3 = false;
     private boolean wateringSensor4 = false;
 
-    private double temperatureMax = 26;
-    private double temperatureMin = 24;
-    private double humidityMax = 70;
-    private double humidityMin = 50;
+    private double temperatureMax = 26.0;
+    private double temperatureMin = 24.0;
+    private double humidityMax = 90.0;
+    private double humidityMin = 50.0;
 
     @Scheduled(fixedRate = 3000) // every 3 seconds
     public void inspectTemperatureSensor0() {
@@ -40,7 +41,7 @@ public class DetectorService {
         Action action = null;
         Alarm alarm = null;
         Sensor currentSensor = restUtil.getCurrentSensorInfo(0);
-            
+   
         if (currentSensor.getValue() > temperatureMax) {
             if (!airConditioningOnSensor0) {
                 airConditioningOnSensor0 = true;
@@ -101,21 +102,20 @@ public class DetectorService {
         Action action = null;
         Alarm alarm = null;
         Sensor currentSensor = restUtil.getCurrentSensorInfo(2);
-
-        if (currentSensor.getValue() < humidityMin) {
+        if (currentSensor.getValue() > humidityMax) {
+            if (wateringSensor2) {
+                wateringSensor2 = false;
+                action = new Action("2", "Humidity", Long.toString(System.currentTimeMillis()),"wateringOff");
+                alarm = new Alarm("2", "Humidity", Double.toString(humidityMax), "HIGH", Long.toString(System.currentTimeMillis()));
+                System.out.println("Watering OFF for humidity sensor 3");
+            }
+        }
+        else if (currentSensor.getValue() < humidityMin) {
             if (!wateringSensor2) {
                 wateringSensor2 = true;
                 action = new Action("2", "Humidity", Long.toString(System.currentTimeMillis()),"wateringOn");
                 alarm = new Alarm("2", "Humidity", Double.toString(humidityMin), "LOW", Long.toString(System.currentTimeMillis()));
                 System.out.println("Watering ON for humidity sensor 2");
-            }
-        }
-        else if (currentSensor.getValue() > humidityMax) {
-            if (wateringSensor2) {
-                wateringSensor2 = false;
-                action = new Action("2", "Humidity", Long.toString(System.currentTimeMillis()),"wateringOff");
-                alarm = new Alarm("2", "Humidity", Double.toString(humidityMax), "HIGH", Long.toString(System.currentTimeMillis()));
-                System.out.println("Watering OFF for humidity sensor 2");
             }
         }
 
@@ -131,7 +131,6 @@ public class DetectorService {
         Action action = null;
         Alarm alarm = null;
         Sensor currentSensor = restUtil.getCurrentSensorInfo(3);
-
         if (currentSensor.getValue() > humidityMax) {
             if (wateringSensor3) {
                 wateringSensor3 = false;

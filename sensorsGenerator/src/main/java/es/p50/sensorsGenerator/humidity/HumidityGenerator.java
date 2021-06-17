@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class HumidityGenerator {
 
-    private final Humidity humidity1 = new Humidity(2, "Double", "Humidity", "Percentage", '%', 400, Instant.now().getEpochSecond());
-    private final Humidity humidity2 = new Humidity(3, "Double", "Humidity", "Percentage", '%', 670, Instant.now().getEpochSecond());
-    private final Humidity humidity3 = new Humidity(4, "Double", "Humidity", "Percentage", '%', 500, Instant.now().getEpochSecond());
+    private final Humidity humidity1 = new Humidity(2, "Double", "Humidity", "Percentage", '%', 520, Instant.now().getEpochSecond());
+    private final Humidity humidity2 = new Humidity(3, "Double", "Humidity", "Percentage", '%', 690, Instant.now().getEpochSecond());
+    private final Humidity humidity3 = new Humidity(4, "Double", "Humidity", "Percentage", '%', 550, Instant.now().getEpochSecond());
 
     private boolean action1 = false;
     private boolean action2 = false;
@@ -25,7 +25,7 @@ public class HumidityGenerator {
     HumidityProducer producer;
 
     @Scheduled(fixedRate = 23000)   // every 23 seconds
-    public void changeHumidity1() {   // simulate "normal" co2 oscillations
+    public void changeHumidity1() {   // simulate "normal" humidity oscillations
         if (!this.action1) {
             Random randint = new Random();
             this.random1 = randint.nextInt(2)+1; // value will be 1 or 2
