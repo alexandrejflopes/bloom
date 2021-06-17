@@ -21,7 +21,6 @@ public class SensorsConsumer {
       return latch;
     }
 
-
     @KafkaListener(topics = "esp50-sensors-temperature")
     public void consumeTemperature(String temperatureString) { 
         String[] temperatureArray = temperatureString.split("-"); 

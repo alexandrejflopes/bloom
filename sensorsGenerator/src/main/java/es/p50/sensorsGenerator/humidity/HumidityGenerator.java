@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class HumidityGenerator {
 
-    private final Humidity humidity1 = new Humidity(2, "Double", "Humidity", "Percentage", '%', 180, Instant.now().getEpochSecond());
+    private final Humidity humidity1 = new Humidity(2, "Double", "Humidity", "Percentage", '%', 400, Instant.now().getEpochSecond());
     private final Humidity humidity2 = new Humidity(3, "Double", "Humidity", "Percentage", '%', 670, Instant.now().getEpochSecond());
     private final Humidity humidity3 = new Humidity(4, "Double", "Humidity", "Percentage", '%', 500, Instant.now().getEpochSecond());
 
