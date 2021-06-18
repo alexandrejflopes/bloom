@@ -21,7 +21,7 @@ pipeline {
 
     stages{
         
-        stage('Logstash build'){
+        /*stage('Logstash build'){
             steps{
                 script{
                     docker.withRegistry('http://192.168.160.48:5000') {
@@ -30,7 +30,7 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
         
         stage('Test') {
             steps {
