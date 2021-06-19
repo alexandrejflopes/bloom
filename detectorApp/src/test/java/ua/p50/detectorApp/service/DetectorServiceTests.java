@@ -152,6 +152,9 @@ public class DetectorServiceTests {
 	
 	@Test
 	public void whenHumidityAboveLimit_and_inspectHumiditySensor2_thenProduceActionAndAlarm_and_ActivateWatering() {
+		detectorService.setHumidityMax(90.0);
+		detectorService.setHumidityMin(50.0);
+		
 		Sensor s = new Sensor(2, "Double", "Humidity", "Percentage", "%", 95.0, 1);
 		when(restUtil.getCurrentSensorInfo(2)).thenReturn(s);
 		
@@ -175,6 +178,9 @@ public class DetectorServiceTests {
 	
 	@Test
 	public void  whenHumBellowLimit_and_inspectHumifitySensor2_and_WaterAct_thenProduceActionAndAlarm_and_turnOffWatering() {
+		detectorService.setHumidityMax(90.0);
+		detectorService.setHumidityMin(50.0);
+		
 		Sensor s1 = new Sensor(2, "Double", "Humidity", "Percentage", "%", 91.0, 1);
 		when(restUtil.getCurrentSensorInfo(2)).thenReturn(s1);
 		
@@ -203,6 +209,9 @@ public class DetectorServiceTests {
 	
 	@Test
 	public void whenHumidityAboveLimit_and_inspectHumiditySensor3_thenProduceActionAndAlarm_and_ActivateWatering() {
+		detectorService.setHumidityMax(90.0);
+		detectorService.setHumidityMin(50.0);
+		
 		Sensor s = new Sensor(3, "Double", "Humidity", "Percentage", "%", 91.0, 1);
 		when(restUtil.getCurrentSensorInfo(3)).thenReturn(s);
 		
@@ -226,6 +235,9 @@ public class DetectorServiceTests {
 	
 	@Test
 	public void  whenHumBellowLimit_and_inspectHumifitySensor3_and_WaterAct_thenProduceActionAndAlarm_and_turnOffWatering() {
+		detectorService.setHumidityMax(90.0);
+		detectorService.setHumidityMin(50.0);
+		
 		Sensor s1 = new Sensor(3, "Double", "Humidity", "Percentage", "%", 91.0, 1);
 		when(restUtil.getCurrentSensorInfo(3)).thenReturn(s1);
 		
@@ -254,6 +266,9 @@ public class DetectorServiceTests {
 	
 	@Test
 	public void whenHumidityAboveLimit_and_inspectHumiditySensor4_thenProduceActionAndAlarm_and_ActivateWatering() {
+		detectorService.setHumidityMax(90.0);
+		detectorService.setHumidityMin(50.0);
+		
 		Sensor s = new Sensor(4, "Double", "Humidity", "Percentage", "%", 91.0, 1);
 		when(restUtil.getCurrentSensorInfo(4)).thenReturn(s);
 		
@@ -277,6 +292,9 @@ public class DetectorServiceTests {
 	
 	@Test
 	public void  whenHumBellowLimit_and_inspectHumifitySensor4_and_WaterAct_thenProduceActionAndAlarm_and_turnOffWatering() {
+		detectorService.setHumidityMax(90.0);
+		detectorService.setHumidityMin(50.0);
+		
 		Sensor s1 = new Sensor(4, "Double", "Humidity", "Percentage", "%", 91.0, 1);
 		when(restUtil.getCurrentSensorInfo(4)).thenReturn(s1);
 		
