@@ -152,7 +152,7 @@ public class DetectorServiceTests {
 	
 	@Test
 	public void whenHumidityAboveLimit_and_inspectHumiditySensor2_thenProduceActionAndAlarm_and_ActivateWatering() {
-		Sensor s = new Sensor(2, "Double", "Humidity", "Percentage", "%", 71.0, 1);
+		Sensor s = new Sensor(2, "Double", "Humidity", "Percentage", "%", 91.0, 1);
 		when(restUtil.getCurrentSensorInfo(2)).thenReturn(s);
 		
 		detectorService.inspectHumiditySensor2();
@@ -169,13 +169,13 @@ public class DetectorServiceTests {
 		Alarm alarm_cap = alarm_captor.getValue();
 		assertThat(alarm_cap.getSensorId()).isEqualTo(2);
 		assertThat(alarm_cap.getSensorType()).isEqualTo("Humidity");
-		assertThat(alarm_cap.getValue()).isEqualTo("70.0");
+		assertThat(alarm_cap.getValue()).isEqualTo("90.0");
 		assertThat(alarm_cap.getAlarm()).isEqualTo("HIGH");
 	}
 	
 	@Test
 	public void  whenHumBellowLimit_and_inspectHumifitySensor2_and_WaterAct_thenProduceActionAndAlarm_and_turnOffWatering() {
-		Sensor s1 = new Sensor(2, "Double", "Humidity", "Percentage", "%", 71.0, 1);
+		Sensor s1 = new Sensor(2, "Double", "Humidity", "Percentage", "%", 91.0, 1);
 		when(restUtil.getCurrentSensorInfo(2)).thenReturn(s1);
 		
 		detectorService.inspectHumiditySensor2();
@@ -203,7 +203,7 @@ public class DetectorServiceTests {
 	
 	@Test
 	public void whenHumidityAboveLimit_and_inspectHumiditySensor3_thenProduceActionAndAlarm_and_ActivateWatering() {
-		Sensor s = new Sensor(3, "Double", "Humidity", "Percentage", "%", 71.0, 1);
+		Sensor s = new Sensor(3, "Double", "Humidity", "Percentage", "%", 91.0, 1);
 		when(restUtil.getCurrentSensorInfo(3)).thenReturn(s);
 		
 		detectorService.inspectHumiditySensor3();
@@ -220,13 +220,13 @@ public class DetectorServiceTests {
 		Alarm alarm_cap = alarm_captor.getValue();
 		assertThat(alarm_cap.getSensorId()).isEqualTo(3);
 		assertThat(alarm_cap.getSensorType()).isEqualTo("Humidity");
-		assertThat(alarm_cap.getValue()).isEqualTo("70.0");
+		assertThat(alarm_cap.getValue()).isEqualTo("90.0");
 		assertThat(alarm_cap.getAlarm()).isEqualTo("HIGH");
 	}
 	
 	@Test
 	public void  whenHumBellowLimit_and_inspectHumifitySensor3_and_WaterAct_thenProduceActionAndAlarm_and_turnOffWatering() {
-		Sensor s1 = new Sensor(3, "Double", "Humidity", "Percentage", "%", 71.0, 1);
+		Sensor s1 = new Sensor(3, "Double", "Humidity", "Percentage", "%", 91.0, 1);
 		when(restUtil.getCurrentSensorInfo(3)).thenReturn(s1);
 		
 		detectorService.inspectHumiditySensor3();
@@ -254,7 +254,7 @@ public class DetectorServiceTests {
 	
 	@Test
 	public void whenHumidityAboveLimit_and_inspectHumiditySensor4_thenProduceActionAndAlarm_and_ActivateWatering() {
-		Sensor s = new Sensor(4, "Double", "Humidity", "Percentage", "%", 71.0, 1);
+		Sensor s = new Sensor(4, "Double", "Humidity", "Percentage", "%", 91.0, 1);
 		when(restUtil.getCurrentSensorInfo(4)).thenReturn(s);
 		
 		detectorService.inspectHumiditySensor4();
@@ -271,13 +271,13 @@ public class DetectorServiceTests {
 		Alarm alarm_cap = alarm_captor.getValue();
 		assertThat(alarm_cap.getSensorId()).isEqualTo(4);
 		assertThat(alarm_cap.getSensorType()).isEqualTo("Humidity");
-		assertThat(alarm_cap.getValue()).isEqualTo("70.0");
+		assertThat(alarm_cap.getValue()).isEqualTo("90.0");
 		assertThat(alarm_cap.getAlarm()).isEqualTo("HIGH");
 	}
 	
 	@Test
 	public void  whenHumBellowLimit_and_inspectHumifitySensor4_and_WaterAct_thenProduceActionAndAlarm_and_turnOffWatering() {
-		Sensor s1 = new Sensor(4, "Double", "Humidity", "Percentage", "%", 71.0, 1);
+		Sensor s1 = new Sensor(4, "Double", "Humidity", "Percentage", "%", 91.0, 1);
 		when(restUtil.getCurrentSensorInfo(4)).thenReturn(s1);
 		
 		detectorService.inspectHumiditySensor4();
