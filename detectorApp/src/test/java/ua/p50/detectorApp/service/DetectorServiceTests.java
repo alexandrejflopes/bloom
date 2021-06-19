@@ -155,19 +155,24 @@ public class DetectorServiceTests {
 		detectorService.setHumidityMax(90.0);
 		detectorService.setHumidityMin(50.0);
 		
-		Sensor s = new Sensor(2, "Double", "Humidity", "Percentage", "%", 95.0, 1);
+		Sensor s1 = new Sensor(2, "Double", "Humidity", "Percentage", "%", 49.0, 1);
+		when(restUtil.getCurrentSensorInfo(2)).thenReturn(s1);
+		
+		detectorService.inspectHumiditySensor2();
+		
+		Sensor s = new Sensor(2, "Double", "Humidity", "Percentage", "%", 91.0, 1);
 		when(restUtil.getCurrentSensorInfo(2)).thenReturn(s);
 		
 		detectorService.inspectHumiditySensor2();
 		
-		verify(actionsProducer, times(1)).sendAction(action_captor.capture());
+		verify(actionsProducer, times(2)).sendAction(action_captor.capture());
 		
 		Action act_cap = action_captor.getValue();
 		assertThat(act_cap.getSensorId()).isEqualTo(2);
 		assertThat(act_cap.getSensorType()).isEqualTo("Humidity");
 		assertThat(act_cap.getAction()).isEqualTo("wateringOn");
 		
-		verify(alarmsProducer, times(1)).sendAlarm(alarm_captor.capture());		
+		verify(alarmsProducer, times(2)).sendAlarm(alarm_captor.capture());		
 	
 		Alarm alarm_cap = alarm_captor.getValue();
 		assertThat(alarm_cap.getSensorId()).isEqualTo(2);
@@ -181,24 +186,19 @@ public class DetectorServiceTests {
 		detectorService.setHumidityMax(90.0);
 		detectorService.setHumidityMin(50.0);
 		
-		Sensor s1 = new Sensor(2, "Double", "Humidity", "Percentage", "%", 91.0, 1);
-		when(restUtil.getCurrentSensorInfo(2)).thenReturn(s1);
-		
-		detectorService.inspectHumiditySensor2();
-		
 		Sensor s = new Sensor(2, "Double", "Humidity", "Percentage", "%", 49.0, 1);
 		when(restUtil.getCurrentSensorInfo(2)).thenReturn(s);
 		
 		detectorService.inspectHumiditySensor2();
 		
-		verify(actionsProducer, times(2)).sendAction(action_captor.capture());
+		verify(actionsProducer, times(1)).sendAction(action_captor.capture());
 		
 		Action act_cap = action_captor.getValue();
 		assertThat(act_cap.getSensorId()).isEqualTo(2);
 		assertThat(act_cap.getSensorType()).isEqualTo("Humidity");
 		assertThat(act_cap.getAction()).isEqualTo("wateringOff");
 		
-		verify(alarmsProducer, times(2)).sendAlarm(alarm_captor.capture());
+		verify(alarmsProducer, times(1)).sendAlarm(alarm_captor.capture());
 		
 		Alarm alarm_cap = alarm_captor.getValue();
 		assertThat(alarm_cap.getSensorId()).isEqualTo(2);
@@ -212,19 +212,24 @@ public class DetectorServiceTests {
 		detectorService.setHumidityMax(90.0);
 		detectorService.setHumidityMin(50.0);
 		
+		Sensor s1 = new Sensor(3, "Double", "Humidity", "Percentage", "%", 49.0, 1);
+		when(restUtil.getCurrentSensorInfo(3)).thenReturn(s1);
+		
+		detectorService.inspectHumiditySensor2();
+		
 		Sensor s = new Sensor(3, "Double", "Humidity", "Percentage", "%", 91.0, 1);
 		when(restUtil.getCurrentSensorInfo(3)).thenReturn(s);
 		
 		detectorService.inspectHumiditySensor3();
 		
-		verify(actionsProducer, times(1)).sendAction(action_captor.capture());
+		verify(actionsProducer, times(2)).sendAction(action_captor.capture());
 		
 		Action act_cap = action_captor.getValue();
 		assertThat(act_cap.getSensorId()).isEqualTo(3);
 		assertThat(act_cap.getSensorType()).isEqualTo("Humidity");
 		assertThat(act_cap.getAction()).isEqualTo("wateringOn");
 		
-		verify(alarmsProducer, times(1)).sendAlarm(alarm_captor.capture());		
+		verify(alarmsProducer, times(2)).sendAlarm(alarm_captor.capture());		
 	
 		Alarm alarm_cap = alarm_captor.getValue();
 		assertThat(alarm_cap.getSensorId()).isEqualTo(3);
@@ -238,24 +243,19 @@ public class DetectorServiceTests {
 		detectorService.setHumidityMax(90.0);
 		detectorService.setHumidityMin(50.0);
 		
-		Sensor s1 = new Sensor(3, "Double", "Humidity", "Percentage", "%", 91.0, 1);
-		when(restUtil.getCurrentSensorInfo(3)).thenReturn(s1);
-		
-		detectorService.inspectHumiditySensor3();
-		
 		Sensor s = new Sensor(3, "Double", "Humidity", "Percentage", "%", 49.0, 1);
 		when(restUtil.getCurrentSensorInfo(3)).thenReturn(s);
 		
 		detectorService.inspectHumiditySensor3();
 		
-		verify(actionsProducer, times(2)).sendAction(action_captor.capture());
+		verify(actionsProducer, times(1)).sendAction(action_captor.capture());
 		
 		Action act_cap = action_captor.getValue();
 		assertThat(act_cap.getSensorId()).isEqualTo(3);
 		assertThat(act_cap.getSensorType()).isEqualTo("Humidity");
 		assertThat(act_cap.getAction()).isEqualTo("wateringOff");
 		
-		verify(alarmsProducer, times(2)).sendAlarm(alarm_captor.capture());
+		verify(alarmsProducer, times(1)).sendAlarm(alarm_captor.capture());
 		
 		Alarm alarm_cap = alarm_captor.getValue();
 		assertThat(alarm_cap.getSensorId()).isEqualTo(3);
@@ -269,19 +269,24 @@ public class DetectorServiceTests {
 		detectorService.setHumidityMax(90.0);
 		detectorService.setHumidityMin(50.0);
 		
+		Sensor s1 = new Sensor(4, "Double", "Humidity", "Percentage", "%", 49.0, 1);
+		when(restUtil.getCurrentSensorInfo(4)).thenReturn(s1);
+		
+		detectorService.inspectHumiditySensor2();
+		
 		Sensor s = new Sensor(4, "Double", "Humidity", "Percentage", "%", 91.0, 1);
 		when(restUtil.getCurrentSensorInfo(4)).thenReturn(s);
 		
 		detectorService.inspectHumiditySensor4();
 		
-		verify(actionsProducer, times(1)).sendAction(action_captor.capture());
+		verify(actionsProducer, times(2)).sendAction(action_captor.capture());
 		
 		Action act_cap = action_captor.getValue();
 		assertThat(act_cap.getSensorId()).isEqualTo(4);
 		assertThat(act_cap.getSensorType()).isEqualTo("Humidity");
 		assertThat(act_cap.getAction()).isEqualTo("wateringOn");
 		
-		verify(alarmsProducer, times(1)).sendAlarm(alarm_captor.capture());		
+		verify(alarmsProducer, times(2)).sendAlarm(alarm_captor.capture());		
 	
 		Alarm alarm_cap = alarm_captor.getValue();
 		assertThat(alarm_cap.getSensorId()).isEqualTo(4);
@@ -295,24 +300,19 @@ public class DetectorServiceTests {
 		detectorService.setHumidityMax(90.0);
 		detectorService.setHumidityMin(50.0);
 		
-		Sensor s1 = new Sensor(4, "Double", "Humidity", "Percentage", "%", 91.0, 1);
-		when(restUtil.getCurrentSensorInfo(4)).thenReturn(s1);
-		
-		detectorService.inspectHumiditySensor4();
-		
 		Sensor s = new Sensor(4, "Double", "Humidity", "Percentage", "%", 49.0, 1);
 		when(restUtil.getCurrentSensorInfo(4)).thenReturn(s);
 		
 		detectorService.inspectHumiditySensor4();
 		
-		verify(actionsProducer, times(2)).sendAction(action_captor.capture());
+		verify(actionsProducer, times(1)).sendAction(action_captor.capture());
 		
 		Action act_cap = action_captor.getValue();
 		assertThat(act_cap.getSensorId()).isEqualTo(4);
 		assertThat(act_cap.getSensorType()).isEqualTo("Humidity");
 		assertThat(act_cap.getAction()).isEqualTo("wateringOff");
 		
-		verify(alarmsProducer, times(2)).sendAlarm(alarm_captor.capture());
+		verify(alarmsProducer, times(1)).sendAlarm(alarm_captor.capture());
 		
 		Alarm alarm_cap = alarm_captor.getValue();
 		assertThat(alarm_cap.getSensorId()).isEqualTo(4);
