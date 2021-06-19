@@ -152,7 +152,7 @@ public class DetectorServiceTests {
 	
 	@Test
 	public void whenHumidityAboveLimit_and_inspectHumiditySensor2_thenProduceActionAndAlarm_and_ActivateWatering() {
-		Sensor s = new Sensor(2, "Double", "Humidity", "Percentage", "%", 91.0, 1);
+		Sensor s = new Sensor(2, "Double", "Humidity", "Percentage", "%", 95.0, 1);
 		when(restUtil.getCurrentSensorInfo(2)).thenReturn(s);
 		
 		detectorService.inspectHumiditySensor2();
