@@ -2,7 +2,6 @@ import React, { Component, Suspense } from 'react';
 import Fullscreen from "react-full-screen";
 import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
-//import { toast, ToastContainer } from 'react-toast';
 import windowSize from 'react-window-size';
 //import './app.scss';
 import "../../../assets/css/style.css";
@@ -31,8 +30,6 @@ class AdminLayout extends Component {
         if (this.props.windowWidth > 992 && this.props.windowWidth <= 1024 && this.props.layout !== 'horizontal') {
             this.props.onComponentWillMount();
         }
-      //console.log(" ADMIN!")
-      //setInterval(function () { this.showAlarm() }, 3000);
     }
 
     mobileOutClickHandler() {
@@ -40,10 +37,6 @@ class AdminLayout extends Component {
             this.props.onComponentWillMount();
         }
     }
-
-    /*showAlarm() {
-      toast.warn("Alarm!");
-    }*/
       
 
     render() {
@@ -72,7 +65,6 @@ class AdminLayout extends Component {
                 <Fullscreen enabled={this.props.isFullScreen}>
                     <Navigation />
                     <NavBar />
-                    {/*<ToastContainer delay={3000} position="top-right"></ToastContainer>*/}
                     <div className="pcoded-main-container" onClick={() => this.mobileOutClickHandler}>
                         <div className="pcoded-wrapper">
                             <div className="pcoded-content">
