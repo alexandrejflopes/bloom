@@ -44,9 +44,17 @@ function getDatum() {
 
 
 // formatar dados para o gráfico
-function formatTemperatureData(tempEsquerda, tempDireita){
+function formatTemperatureData(tempEsquerda, tempDireita, min, max){
   let esquerda = [];
   let direita = [];
+  let limiteSuperior = [];
+  let limiteInferior = [];
+
+  const lengths = [tempEsquerda.length, tempDireita.length];
+  const maxLength = Math.max(...lengths); // maior numero de leituras
+  let sideToUse = tempEsquerda.length === maxLength ? "esquerda" : "direita";
+
+  //console.log("maxLength temp -> ", maxLength)
 
   // extrair os dados relevantes para o gráfico para cada sensor
   for(let i=0; i < tempEsquerda.length; i++){
@@ -58,6 +66,22 @@ function formatTemperatureData(tempEsquerda, tempDireita){
         'y': leitura.value
       }
     )
+
+    if (sideToUse === "esquerda") {
+      limiteInferior.push(
+        {
+          'x': timestampToDate(leitura.timestamp),
+          'y': parseFloat(min)
+        }
+      )
+
+      limiteSuperior.push(
+        {
+          'x': timestampToDate(leitura.timestamp),
+          'y': parseFloat(max)
+        }
+      )
+    }
   }
 
   for (let i = 0; i < tempDireita.length; i++) {
@@ -69,6 +93,22 @@ function formatTemperatureData(tempEsquerda, tempDireita){
         'y': leitura.value
       }
     )
+
+    if (sideToUse === "direita") {
+      limiteInferior.push(
+        {
+          'x': timestampToDate(leitura.timestamp),
+          'y': parseFloat(min)
+        }
+      )
+
+      limiteSuperior.push(
+        {
+          'x': timestampToDate(leitura.timestamp),
+          'y': parseFloat(max)
+        }
+      )
+    }
   }
 
   return [
@@ -82,10 +122,21 @@ function formatTemperatureData(tempEsquerda, tempDireita){
       key: 'Temperatura Este',
       color: '#04a9f5'
     },
+    // limites
+    {
+      values: limiteInferior,
+      key: 'Limite Inferior',
+      color: '#DC143C'
+    },
+    {
+      values: limiteSuperior,
+      key: 'Limite Superior',
+      color: '#DC143C'
+    },
   ];
 }
 
-function TemperatureChart() {
+function TemperatureChart({ minValue, maxValue }) {
 
   //const data = getDatum();
 
@@ -107,7 +158,7 @@ function TemperatureChart() {
   const fetchTemperatura = async () => {
     try{
       const fetchTempEsquerda = await fetch(API_URL + '/sensor/0/readings/all/' + MAX_DATA_ELEMENTS/*, { timeout: 10000 }*/);
-      console.log("fetched TemperaturaEsquerda");
+      //console.log("fetched TemperaturaEsquerda");
       let responseEsquerda = await fetchTempEsquerda.json();
       //console.log(responseEsquerda)
       // TODO: isto deverá vir já limitado da API depois
@@ -115,14 +166,14 @@ function TemperatureChart() {
       //console.log("responseEsquerda filtered")
       //console.log(responseEsquerda)
       const fetchTempDireita = await fetch(API_URL + '/sensor/1/readings/all/' + MAX_DATA_ELEMENTS/*, { timeout: 10000 }*/);
-      console.log("fetched TemperaturaDireita");
+      //console.log("fetched TemperaturaDireita");
       let responseDireita = await fetchTempDireita.json();
       //responseDireita = limitArrayToFirstX(responseDireita, 100);
 
-      const data = formatTemperatureData(responseEsquerda, responseDireita);
+      const data = formatTemperatureData(responseEsquerda, responseDireita, minValue, maxValue);
 
-      console.log("data")
-      console.log(data)
+      //console.log("data")
+      //console.log(data)
 
       setData(data);
     }

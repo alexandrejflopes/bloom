@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { Button, Card, Col, Form, Row, Tab, Tabs } from 'react-bootstrap';
+import NotificationAlert from "react-notification-alert";
+import SockJsClient from 'react-stomp';
 import "../assets/css/settings.css";
 import Aux from "../hoc/_Aux";
-import { API_URL } from '../variables/urls';
+import { API_URL, SOCKET_URL } from '../variables/urls';
 
 
 
@@ -21,11 +23,62 @@ function Settings() {
     const[tempErro,setTempErro] = React.useState(false);
     const[humErro,setHumErro] = React.useState(false);
     const[vazioErro,setVazioErro] = React.useState(false);
+    const [apiErroTemp, setApiErroTemp] = React.useState(false);
+    const [apiErroHum, setApiErroHum] = React.useState(false);
+    const [botaoLoading, setBotaoLoading] = React.useState(false);
+
 
     useEffect(() => {
         fetchLimitesTemp();
         fetchLimitesHum();
+        // TODO: just to test
+        //setInterval(function () { showAlarm("Alarme!"); /*console.log("Toast!");*/ }, 1000);
       }, []); // array vazio para só fazer isto ao carregar a página
+
+      // alarms
+  const notificationAlertRef = React.useRef(null);
+  const showAlarm = (message, place = "tr", type = "danger") => {
+
+    /**
+     * place:
+     *  - tl
+     *  - tc
+     *  - tr
+     *  - bl
+     *  - bc
+     *  - br
+     * colors:
+     *  - primary
+     *  - success
+     *  - danger
+     *  - warning
+     *  - info
+     */
+
+    let options = {
+      place: place,
+      message: (
+        <div>
+          <div>
+            {message}
+          </div>
+        </div>
+      ),
+      type: type,
+      //icon: "tim-icons icon-bell-55",
+      autoDismiss: 15,
+    };
+    notificationAlertRef.current.notificationAlert(options);
+  };
+
+  let onConnected = () => {
+    console.log("Alarms Socket connected!!")
+  }
+
+  let onMessageReceived = (msg) => {
+    console.log('New Message Received:', msg);
+    showAlarm(msg);
+  }
 
     const fetchLimitesTemp = async () => {
         const fetchItem = await fetch(API_URL + '/sensor-limits/temperature');
@@ -50,6 +103,8 @@ function Settings() {
         }
         catch(error){
           console.log(error);
+          setApiErroTemp(true);
+          throw Error("Error updating temperature limits");
         }
     };
 
@@ -64,11 +119,16 @@ function Settings() {
         }
         catch(error){
           console.log(error);
+          setApiErroHum(true);
+          throw Error("Error updating humidity limits");
         }
     };
     
 
-    const guardarLimites = () => {
+    const guardarLimites = async () => {
+
+        setBotaoLoading(true);
+      
 
         if(newMinTemp>newMaxTemp || newMinHum>newMaxHum || newMaxTemp<newMinTemp || newMaxHum<newMinHum){
             setLimitesErro(true);
@@ -87,22 +147,42 @@ function Settings() {
             setSucesso(false);
         }
         else if((newMaxHum !== "" && newMinHum !== "") && (newMinTemp === "" || newMaxTemp === "")){ //se o utilizador apenas quiser definir a humidade
-            setSucesso(true);
-            setLimitesHum();
-            fetchLimitesHum();
+            try{
+              await setLimitesHum(); // esperar para ver se houve erro ou não
+              setSucesso(true);
+              fetchLimitesHum();
+            }
+            catch (erro) {
+              console.log(erro)
+              setSucesso(false);
+            }
         }
         else if((newMinTemp !== "" && newMaxTemp !== "") && (newMaxHum === "" || newMinHum === "")){ //se o utilizador apenas quiser definir a temperatura
-            setSucesso(true);
-            setLimitesTemp();
-            fetchLimitesTemp();
+            try{
+              await setLimitesTemp(); // esperar para ver se houve erro ou não
+              setSucesso(true);
+              fetchLimitesTemp();
+            }
+            catch (erro) {
+              console.log(erro)
+              setSucesso(false);
+            }
         }
         else{ //se o utilizador apenas quiser definir a temperatura e a humidade
-            setSucesso(true);
-            setLimitesTemp();
-            setLimitesHum();
-            fetchLimitesTemp();
-            fetchLimitesHum();
+            try {
+              await Promise.all([setLimitesTemp(), setLimitesHum()]); // esperar pela atualização de ambos
+              setSucesso(true);
+              fetchLimitesTemp();
+              fetchLimitesHum();
+            }
+            catch(erro) {
+              console.log(erro)
+              setSucesso(false);
+            }
         }
+
+
+      setBotaoLoading(false);
         
     }
 
@@ -141,12 +221,44 @@ function Settings() {
                     Os campos não podem ser todos vazios.
                 </div>
             )
-        } 
+        }
+        else if (apiErroHum && apiErroTemp) {
+          return (
+            <div className="alert alert-danger" role="alert" id="hum_alert">
+              Erro ao atualizar os novos limites no servidor. Tente novamente.
+            </div>
+          )
+        }
+        else if (apiErroHum && !apiErroTemp) {
+          return (
+            <div className="alert alert-danger" role="alert" id="hum_alert">
+              Erro ao atualizar os novos limites de humidade no servidor. Tente novamente.
+            </div>
+          )
+        }
+        else if (!apiErroHum && apiErroTemp) {
+          return (
+            <div className="alert alert-danger" role="alert" id="hum_alert">
+              Erro ao atualizar os novos limites de temperatura no servidor. Tente novamente.
+            </div>
+          )
+        }
         
     }
 
     return (
         <Aux>
+          <div className="react-notification-alert-container">
+            <NotificationAlert ref={notificationAlertRef} />
+          </div>
+          <SockJsClient
+            url={SOCKET_URL}
+            topics={['/topic/alarm']}
+            onConnect={onConnected}
+            onDisconnect={console.log("Alarms Socket disconnected!")}
+            onMessage={msg => onMessageReceived(msg)}
+            debug={false}
+          />
             <Row>
                 <Col>
                     <Card>
@@ -165,11 +277,11 @@ function Settings() {
                                                 <Col md={6}>
                                                     <Form.Group controlId="limiteMinimoHumidade">
                                                         <Form.Label>Novo Limite Mínimo (%)</Form.Label>
-                                                        <Form.Control type="number" id="min_hum"  placeholder="Valor mínimo aceitável" value={newMinHum} onChange={e => setNewMinHum(e.target.value)} />
+                                                        <Form.Control type="number" id="min_hum" placeholder="Valor mínimo aceitável" value={newMinHum} onChange={e => setNewMinHum(parseFloat(e.target.value))} />
                                                     </Form.Group>
                                                     <Form.Group controlId="limiteMaximoHumidade">
                                                         <Form.Label>Novo Limite Máximo (%)</Form.Label>
-                                                        <Form.Control type="number" id="max_hum" placeholder="Valor máximo aceitável" value={newMaxHum} onChange={e => setNewMaxHum(e.target.value)}  />
+                                                        <Form.Control type="number" id="max_hum" placeholder="Valor máximo aceitável" value={newMaxHum} onChange={e => setNewMaxHum(parseFloat(e.target.value))}  />
                                                     </Form.Group>
                                                 </Col>
                                             </Tab>
@@ -179,11 +291,11 @@ function Settings() {
                                                 <Col md={6}>
                                                     <Form.Group controlId="limiteMinimoTemperatura">
                                                         <Form.Label>Novo Limite Mínimo (ºC)</Form.Label>
-                                                        <Form.Control type="number" id="min_temp" placeholder="Valor mínimo aceitável" value={newMinTemp} onChange={e => setNewMinTemp(e.target.value)} />
+                                                        <Form.Control type="number" id="min_temp" placeholder="Valor mínimo aceitável" value={newMinTemp} onChange={e => setNewMinTemp(parseFloat(e.target.value))} />
                                                     </Form.Group>
                                                     <Form.Group controlId="limiteMaximoTemperatura">
                                                         <Form.Label>Novo Limite Máximo (ºC)</Form.Label>
-                                                        <Form.Control type="number" id="max_temp" placeholder="Valor máximo aceitável" value={newMaxTemp} onChange={e => setNewMaxTemp(e.target.value)}  />
+                                                        <Form.Control type="number" id="max_temp" placeholder="Valor máximo aceitável" value={newMaxTemp} onChange={e => setNewMaxTemp(parseFloat(e.target.value))}  />
                                                     </Form.Group>
                                                 </Col>
                                             </Tab>
@@ -191,7 +303,7 @@ function Settings() {
                                         { 
                                             getAlert()
                                         }
-                                    <Button variant="outline-dark" className="guardar_bt" id="guardar_bt" onClick={() => guardarLimites()}>Guardar</Button>
+                                        <Button variant="outline-dark" disabled={botaoLoading} className="guardar_bt" id="guardar_bt" onClick={() => guardarLimites()}>{botaoLoading ? "Aguarde..." : "Guardar"}</Button>
                                 </Col>
                             </Row>
                             
