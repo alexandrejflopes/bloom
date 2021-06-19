@@ -12,6 +12,7 @@ pipeline {
         sensors_app = ""
         sensors_generator = ""
         frontend_app = ""
+        logstash_container = ""
     }
 
     tools {
@@ -19,6 +20,18 @@ pipeline {
     }
 
     stages{
+        
+        /*stage('Logstash build'){
+            steps{
+                script{
+                    docker.withRegistry('http://192.168.160.48:5000') {
+                        logstash_container = docker.build("esp50/logstash", "./logstashConf")
+                        logstash_container.push()
+                    }
+                }
+            }
+        }*/
+        
         stage('Test') {
             steps {
                 dir('detectorApp'){
