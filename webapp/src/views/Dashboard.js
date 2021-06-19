@@ -74,7 +74,7 @@ function Dashboard (){
       ),
       type: type,
       //icon: "tim-icons icon-bell-55",
-      autoDismiss: 5,
+      autoDismiss: 15,
     };
     notificationAlertRef.current.notificationAlert(options);
   };
@@ -92,9 +92,9 @@ function Dashboard (){
   const fetchLatestReadings = async () => {
     try {
       const fetchItem = await fetch(API_URL + '/sensor/all/latest-readings');
-      console.log("fetched data");
+      //console.log("fetched data");
       const data = await fetchItem.json();
-      console.log(data);
+      //console.log(data);
       let leiturasHumidade = [];
       // set da temperatura e CO2
       for (let i = 0; i < data.length; i++){

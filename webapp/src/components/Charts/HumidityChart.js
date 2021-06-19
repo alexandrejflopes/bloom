@@ -123,8 +123,8 @@ function formatHumidityData(humidadeEsquerda, humidadeCentro, humidadeDireita, m
     }
   }
 
-  console.log("limiteInferior -> ", limiteInferior)
-  console.log("limiteSuperior -> ", limiteSuperior)
+  //console.log("limiteInferior -> ", limiteInferior)
+  //console.log("limiteSuperior -> ", limiteSuperior)
 
   return [
     {
@@ -177,21 +177,21 @@ function HumidityChart({minValue, maxValue}) {
   const fetchHumidade = async () => {
     try{
       const fetchHumidadeEsquerda = await fetch(API_URL + '/sensor/2/readings/all/' + MAX_DATA_ELEMENTS);
-      console.log("fetched HumidadeEsquerda");
+      //console.log("fetched HumidadeEsquerda");
       const responseEsquerda = await fetchHumidadeEsquerda.json();
 
       const fetchHumidadeCentro = await fetch(API_URL + '/sensor/3/readings/all/' + MAX_DATA_ELEMENTS);
-      console.log("fetched HumidadeCentro");
+      //console.log("fetched HumidadeCentro");
       const responseCentro = await fetchHumidadeCentro.json();
 
       const fetchHumidadeDireita = await fetch(API_URL + '/sensor/4/readings/all/' + MAX_DATA_ELEMENTS);
-      console.log("fetched HumidadeDireita");
+      //console.log("fetched HumidadeDireita");
       const responseDireita = await fetchHumidadeDireita.json();
 
       const data = formatHumidityData(responseEsquerda, responseCentro, responseDireita, minValue, maxValue);
 
-      console.log("data")
-      console.log(data)
+      //console.log("data")
+      //console.log(data)
 
       setData(data);
     }
@@ -199,7 +199,6 @@ function HumidityChart({minValue, maxValue}) {
       console.error(error);
     }
 
-    //await sleep(SLEEP_TIME);
   }
 
 

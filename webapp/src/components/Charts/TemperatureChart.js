@@ -158,7 +158,7 @@ function TemperatureChart({ minValue, maxValue }) {
   const fetchTemperatura = async () => {
     try{
       const fetchTempEsquerda = await fetch(API_URL + '/sensor/0/readings/all/' + MAX_DATA_ELEMENTS/*, { timeout: 10000 }*/);
-      console.log("fetched TemperaturaEsquerda");
+      //console.log("fetched TemperaturaEsquerda");
       let responseEsquerda = await fetchTempEsquerda.json();
       //console.log(responseEsquerda)
       // TODO: isto deverá vir já limitado da API depois
@@ -166,14 +166,14 @@ function TemperatureChart({ minValue, maxValue }) {
       //console.log("responseEsquerda filtered")
       //console.log(responseEsquerda)
       const fetchTempDireita = await fetch(API_URL + '/sensor/1/readings/all/' + MAX_DATA_ELEMENTS/*, { timeout: 10000 }*/);
-      console.log("fetched TemperaturaDireita");
+      //console.log("fetched TemperaturaDireita");
       let responseDireita = await fetchTempDireita.json();
       //responseDireita = limitArrayToFirstX(responseDireita, 100);
 
       const data = formatTemperatureData(responseEsquerda, responseDireita, minValue, maxValue);
 
-      console.log("data")
-      console.log(data)
+      //console.log("data")
+      //console.log(data)
 
       setData(data);
     }

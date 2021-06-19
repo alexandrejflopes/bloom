@@ -68,17 +68,17 @@ function CO2Chart() {
   const fetchCO2 = async () => {
     try{
       const fetchCO2Esquerda = await fetch(API_URL + '/sensor/5/readings/all/' + MAX_DATA_ELEMENTS/*, { timeout: 10000 }*/);
-      console.log("fetched CO2Esquerda");
+      //console.log("fetched CO2Esquerda");
       let responseEsquerda = await fetchCO2Esquerda.json();
 
       const fetchCO2Direita = await fetch(API_URL + '/sensor/6/readings/all/' + MAX_DATA_ELEMENTS/*, { timeout: 10000 }*/);
-      console.log("fetched CO2Direita");
+      //console.log("fetched CO2Direita");
       let responseDireita = await fetchCO2Direita.json();
 
       const data = formatCO2Data(responseEsquerda, responseDireita);
 
-      console.log("data")
-      console.log(data)
+      //console.log("data")
+      //console.log(data)
 
       setData(data);
     }

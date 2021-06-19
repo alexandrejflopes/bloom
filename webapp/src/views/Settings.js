@@ -66,7 +66,7 @@ function Settings() {
       ),
       type: type,
       //icon: "tim-icons icon-bell-55",
-      autoDismiss: 5,
+      autoDismiss: 15,
     };
     notificationAlertRef.current.notificationAlert(options);
   };
