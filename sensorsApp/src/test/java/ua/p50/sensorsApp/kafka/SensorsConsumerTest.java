@@ -1,83 +1,114 @@
 package ua.p50.sensorsApp.kafka;
 
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.producer.Producer;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.serialization.StringDeserializer;
-import org.apache.kafka.common.serialization.StringSerializer;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
-import org.springframework.kafka.core.DefaultKafkaProducerFactory;
-import org.springframework.kafka.listener.ContainerProperties;
-import org.springframework.kafka.listener.KafkaMessageListenerContainer;
-import org.springframework.kafka.listener.MessageListener;
-import org.springframework.kafka.test.EmbeddedKafkaBroker;
-import org.springframework.kafka.test.context.EmbeddedKafka;
-import org.springframework.kafka.test.utils.ContainerTestUtils;
-import org.springframework.kafka.test.utils.KafkaTestUtils;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
-
+import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@EmbeddedKafka
-@ExtendWith(SpringExtension.class)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class SensorsConsumerTest {
+import org.influxdb.InfluxDB;
+import org.influxdb.InfluxDBFactory;
+import org.influxdb.dto.Query;
+import org.influxdb.dto.QueryResult;
+import org.influxdb.impl.InfluxDBResultMapper;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.test.annotation.DirtiesContext;
 
-    private static final String TOPIC = "esp50-sensors-temperature";
+import ua.p50.sensorsApp.models.Sensor;
 
-    @Autowired
-    private EmbeddedKafkaBroker embeddedKafkaBroker;
+@SpringBootTest
+@DirtiesContext
+@EmbeddedKafka(partitions = 1, brokerProperties = { "listeners=PLAINTEXT://localhost:9092", "port=9092" })
+class SensorsConsumerTest {
 
-    BlockingQueue<ConsumerRecord<String, String>> records;
+  @Autowired
+  private KafkaTemplate<String, String> kafkaTemplate;
+  
+  @Autowired
+  private SensorsConsumer consumer;
 
-    KafkaMessageListenerContainer<String, String> container;
+  private InfluxDB influxDB;
 
-    @BeforeAll
-    void setUp() {
-        Map<String, Object> configs = new HashMap<>(KafkaTestUtils.consumerProps("consumer", "false", embeddedKafkaBroker));
-        DefaultKafkaConsumerFactory<String, String> consumerFactory = new DefaultKafkaConsumerFactory<>(configs, new StringDeserializer(), new StringDeserializer());
-        ContainerProperties containerProperties = new ContainerProperties(TOPIC);
-        container = new KafkaMessageListenerContainer<>(consumerFactory, containerProperties);
-        records = new LinkedBlockingQueue<>();
-        container.setupMessageListener((MessageListener<String, String>) records::add);
-        container.start();
-        ContainerTestUtils.waitForAssignment(container, embeddedKafkaBroker.getPartitionsPerTopic());
-    }
+  private InfluxDBResultMapper resultMapper;
+ 
+  @BeforeEach
+  public void setUp() {
+    influxDB = InfluxDBFactory.connect("http://192.168.160.18:8086", "user", "~");
+    resultMapper = new InfluxDBResultMapper();
+    //Mockito.doNothing().when(service).addSensor(sensor);
+  }
 
-    @AfterAll
-    void tearDown() {
-        container.stop();
-    }
+  /**
+  @Test
+  public void givenEmbeddedKafkaBroker_whenExistsTemperatureMessageInTopic_thenMessageReceivedByConsumerAndServiceInvoked() 
+    throws Exception {
 
-    @Test
-    public void kafkaSetup_withTopic_ensureSendMessageIsReceived() throws Exception {
-        // Arrange
-        Map<String, Object> configs = new HashMap<>(KafkaTestUtils.producerProps(embeddedKafkaBroker));
-        Producer<String, String> producer = new DefaultKafkaProducerFactory<>(configs, new StringSerializer(), new StringSerializer()).createProducer();
+      String message = "0-Double-Temperature-Celsius-C-20.0-0";
 
-        // Act
-        producer.send(new ProducerRecord<>(TOPIC, "my-aggregate-id", "{\"id\":\"0\"dataType\":\"Double\"sensorType\":\"Temperature\"unit\":\"Celsius\"unitAbreviation\":\"C\"value\":\"20.0\"timestamp\":\"0\"}"));
-        producer.flush();
+      kafkaTemplate.send("esp50-sensors-temperature", message);
 
-        // Assert
-        ConsumerRecord<String, String> singleRecord = records.poll(100, TimeUnit.MILLISECONDS);
-        assertThat(singleRecord).isNotNull();
-        assertThat(singleRecord.key()).isEqualTo("my-aggregate-id");
-        assertThat(singleRecord.value()).isEqualTo("{\"id\":\"0\"dataType\":\"Double\"sensorType\":\"Temperature\"unit\":\"Celsius\"unitAbreviation\":\"C\"value\":\"20.0\"timestamp\":\"0\"}");
-    }
+      consumer.getLatch().await(10000, TimeUnit.MILLISECONDS);
+      
+      Mockito.verify(service, times(1)).addSensor(sensor);
+  }
+  **/
 
+  @Test
+  public void givenEmbeddedKafkaBroker_whenExistsTemperatureMessageInTopic_thenMessageReceivedByConsumer_AndStoredInDatabase() 
+    throws Exception {
+
+      String message = "10-Double-Temperature-Celsius-C-3000.0-0";
+
+      kafkaTemplate.send("esp50-sensors-temperature", message);
+
+      Thread.sleep(10000);
+
+      QueryResult queryResult = influxDB.query(new Query("SELECT * FROM sensor WHERE id=10 AND value=3000.0", "esp50sensors"));
+      List<Sensor> sensors = resultMapper.toPOJO(queryResult, Sensor.class);
+
+      Sensor storedSensor = sensors.get(0);
+
+      assertThat(storedSensor.getId()).isEqualTo(10);
+      assertThat(storedSensor.getValue()).isEqualTo(3000.0);
+  }
+
+  @Test
+  public void givenEmbeddedKafkaBroker_whenExistsHumidityMessageInTopic_thenMessageReceivedByConsumer_AndStoredInDatabase() 
+    throws Exception {
+
+      String message = "11-Double-Humidity-Percentage-%-3000.0-0";
+
+      kafkaTemplate.send("esp50-sensors-humidity", message);
+
+      Thread.sleep(10000);
+
+      QueryResult queryResult = influxDB.query(new Query("SELECT * FROM sensor WHERE id=11 AND value=3000.0", "esp50sensors"));
+      List<Sensor> sensors = resultMapper.toPOJO(queryResult, Sensor.class);
+
+      Sensor storedSensor = sensors.get(0);
+
+      assertThat(storedSensor.getId()).isEqualTo(11);
+      assertThat(storedSensor.getValue()).isEqualTo(3000.0);
+  }
+
+  @Test
+  public void givenEmbeddedKafkaBroker_whenExistsCo2MessageInTopic_thenMessageReceivedByConsumer_AndStoredInDatabase() 
+    throws Exception {
+
+      String message = "12-Double-Co2-Parts per million-ppm-3000.0-0";
+
+      kafkaTemplate.send("esp50-sensors-co2", message);
+
+      Thread.sleep(10000);
+
+      QueryResult queryResult = influxDB.query(new Query("SELECT * FROM sensor WHERE id=12 AND value=3000.0", "esp50sensors"));
+      List<Sensor> sensors = resultMapper.toPOJO(queryResult, Sensor.class);
+
+      Sensor storedSensor = sensors.get(0);
+
+      assertThat(storedSensor.getId()).isEqualTo(12);
+      assertThat(storedSensor.getValue()).isEqualTo(3000.0);
+  }
 }
-
-

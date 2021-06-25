@@ -61,7 +61,8 @@ public class SensorControllerTests {
 	@Test
 	public void whenGettingAllSensorReadingsFromSensorZero_thenGetAllSensorReadingsFromSensorZero() throws JsonProcessingException, Exception {
 		int sensor_id = 0;
-		String endpoint = "/sensor/"+sensor_id+"/readings/all";
+		int count = 4;
+		String endpoint = "/sensor/"+sensor_id+"/readings/all/"+count;
 		
 		Sensor s1 = new Sensor(0, "Double", "Temperature", "Celsius", "C", 24.0, 0);
 		Sensor s2 = new Sensor(0, "Double", "Temperature", "Celsius", "C", 24.5, 1);
