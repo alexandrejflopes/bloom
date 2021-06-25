@@ -18,6 +18,8 @@ import Navigation from './Navigation';
 
 class AdminLayout extends Component {
 
+
+
     fullScreenExitHandler = () => {
         if (!document.fullscreenElement && !document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement) {
             this.props.onFullScreenExit();
@@ -35,6 +37,7 @@ class AdminLayout extends Component {
             this.props.onComponentWillMount();
         }
     }
+      
 
     render() {
 

@@ -12,6 +12,7 @@ pipeline {
         sensors_app = ""
         sensors_generator = ""
         frontend_app = ""
+        logstash_container = ""
     }
 
     tools {
@@ -19,6 +20,18 @@ pipeline {
     }
 
     stages{
+        
+        /*stage('Logstash build'){
+            steps{
+                script{
+                    docker.withRegistry('http://192.168.160.48:5000') {
+                        logstash_container = docker.build("esp50/logstash", "./logstashConf")
+                        logstash_container.push()
+                    }
+                }
+            }
+        }*/
+        
         stage('Test') {
             steps {
                 dir('detectorApp'){
@@ -93,14 +106,14 @@ pipeline {
         
         
 
-        stage ('Deploy') {
+        /*stage ('Deploy') {
             steps{
-                sh 'mvn deploy -f detectorApp/pom.xml -s detectorApp/settings.xml'
                 sh 'mvn deploy -f manageApp/pom.xml -s manageApp/settings.xml'
+                sh 'mvn deploy -f detectorApp/pom.xml -s detectorApp/settings.xml'
                 sh 'mvn deploy -f sensorsApp/pom.xml -s sensorsApp/settings.xml'
                 sh 'mvn deploy -f sensorsGenerator/pom.xml -s sensorsGenerator/settings.xml' 
             }
-        }
+        }*/
 
 
         stage('Build images'){

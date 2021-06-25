@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class HumidityGenerator {
 
-    private final Humidity humidity1 = new Humidity(2, "Double", "Humidity", "Percentage", '%', 180, Instant.now().getEpochSecond());
-    private final Humidity humidity2 = new Humidity(3, "Double", "Humidity", "Percentage", '%', 670, Instant.now().getEpochSecond());
-    private final Humidity humidity3 = new Humidity(4, "Double", "Humidity", "Percentage", '%', 500, Instant.now().getEpochSecond());
+    private final Humidity humidity1 = new Humidity(2, "Double", "Humidity", "Percentage", '%', 520, Instant.now().getEpochSecond());
+    private final Humidity humidity2 = new Humidity(3, "Double", "Humidity", "Percentage", '%', 690, Instant.now().getEpochSecond());
+    private final Humidity humidity3 = new Humidity(4, "Double", "Humidity", "Percentage", '%', 550, Instant.now().getEpochSecond());
 
     private boolean action1 = false;
     private boolean action2 = false;
@@ -25,10 +25,9 @@ public class HumidityGenerator {
     HumidityProducer producer;
 
     @Scheduled(fixedRate = 23000)   // every 23 seconds
-    public void changeHumidity1() {   // simulate "normal" co2 oscillations
+    public void changeHumidity1() {   // simulate "normal" humidity oscillations
         if (!this.action1) {
-            Random randint = new Random();
-            this.random1 = randint.nextInt(2)+1; // value will be 1 or 2
+            this.random1 = 2;
         }
         if (random1==1) increaseHumidity1();
         else decreaseHumidity1();
@@ -59,8 +58,7 @@ public class HumidityGenerator {
     @Scheduled(fixedRate = 17000)   // every 17 seconds
     public void changeHumidity2() {   // simulate "normal" co2 oscillations
         if (!this.action2) {
-            Random randint = new Random();
-            this.random2 = randint.nextInt(2)+1; // value will be 1 or 2
+            this.random2 = 2;
         }
         if (this.random2==1) increaseHumidity2();
         else decreaseHumidity2();
@@ -91,8 +89,7 @@ public class HumidityGenerator {
     @Scheduled(fixedRate = 19000)   // every 19 seconds
     public void changeHumidity3() {   // simulate "normal" co2 oscillations
         if (!this.action3) {
-            Random randint = new Random();
-            this.random3 = randint.nextInt(2)+1; // value will be 1 or 2
+            this.random3 = 2;
         }
         if (this.random3==1) increaseHumidity3();
         else decreaseHumidity3();
