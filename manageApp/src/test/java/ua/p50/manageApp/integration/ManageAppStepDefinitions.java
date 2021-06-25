@@ -98,9 +98,9 @@ public class ManageAppStepDefinitions extends SpringIntegrationTest {
 		assertThat(recv_json).isEqualTo(sensor_str);	
 	}
 	
-	@When("client calls the endpoint of all the readings of sensor {int}")
-    public void GettingAllSensorReadingsFromSensor(Integer sensorId) throws Throwable {
-		String endpoint = "http://localhost:50060/sensor/"+sensorId+"/readings/all";
+	@When("client calls the endpoint of all the readings of sensor {int} with count {int}")
+    public void GettingAllSensorReadingsFromSensor(Integer sensorId, Integer count) throws Throwable {
+		String endpoint = "http://localhost:50060/sensor/"+sensorId+"/readings/all/"+count;
 		
 		given(sensorService.getAllSensor(sensorId)).willReturn(allSensor0Readings);
 		

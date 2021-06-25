@@ -6,7 +6,7 @@ Feature: Getting sensor readings with filtering
     And receives the latest reading of sensor 0
     
   Scenario: Getting all sensor readings from sensor
-    When client calls the endpoint of all the readings of sensor 0
+    When client calls the endpoint of all the readings of sensor 0 with count 4
     Then the client recieves a reply with code 200
     And receives all the readings of sensor 0
     
