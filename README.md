@@ -15,7 +15,7 @@ Outro aspecto relevante são os alarmes, que são realizados em eventos quando a
 
 # Ver mais
 
-- Documentação
+- [Documentação](https://alexandrejflopes.github.io/bloom/)
 - [Demonstração em vídeo](https://drive.google.com/file/d/1NSRv-1GlIMDcBhwujBoNQSxvRAMzY_Up/view?usp=sharing)
 
 
