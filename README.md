@@ -1,5 +1,5 @@
 # Bloom
-A Bloom é um sistema de monitorização de estufas utilizando uma variedade de sensores que registam medições de temperatura, humidade e dióxido de carbono, mostradas na forma de uma aplicação web que mostram em tempo real as condições atuais do espaço.
+A Bloom é um sistema de monitorização de estufas utilizando uma variedade de sensores que registam medições de temperatura, humidade e dióxido de carbono, mostradas na forma de uma aplicação web com as condições do espaço em tempo real.
 
 # Visão Geral
 
